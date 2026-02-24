@@ -1,74 +1,95 @@
-# Welcome to your Lovable project
+# Meet Point
 
-## Project info
+Meet Point is a modern restaurant ordering web application built with React, TypeScript, and Vite. It includes a customer storefront, cart and checkout flow, authentication-ready account pages, and an admin dashboard UI.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Features
 
-## How can I edit this code?
+- Responsive landing page with featured dishes and category-based discovery
+- Menu browsing with category filters and product detail pages
+- Persistent shopping cart with quantity management and automatic totals
+- Checkout and order confirmation flow
+- Authentication-ready user account experience (login, register, forgot password, dashboard)
+- Admin interface for overview metrics, menu items, and order monitoring
+- API abstraction layer prepared for Strapi (currently backed by mock data)
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- React 18 + TypeScript
+- Vite 5
+- React Router
+- Zustand (persisted auth and cart state)
+- TanStack Query
+- Axios
+- Tailwind CSS + shadcn/ui (Radix UI primitives)
+- Vitest + Testing Library
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js 18+ (recommended: latest LTS)
+- npm 9+ (or Bun, since `bun.lockb` is present)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+```bash
+git clone <your-repository-url>
+cd meet-point
+npm install
+```
 
-Follow these steps:
+### Run Development Server
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The app will be available at `http://localhost:5173`.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Environment Variables
 
-**Use GitHub Codespaces**
+Create a `.env` file in the project root:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```bash
+VITE_API_URL=http://localhost:1337/api
+```
 
-## What technologies are used for this project?
+`VITE_API_URL` is optional. If not provided, the app defaults to `http://localhost:1337/api`.
 
-This project is built with:
+## Available Scripts
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- `npm run dev` - Start local development server
+- `npm run build` - Build production bundle
+- `npm run build:dev` - Build with development mode
+- `npm run preview` - Preview production build locally
+- `npm run lint` - Run ESLint
+- `npm run test` - Run tests once with Vitest
+- `npm run test:watch` - Run tests in watch mode
 
-## How can I deploy this project?
+## Project Structure
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+```text
+src/
+  components/     # Shared UI, layout, cart, and menu components
+  pages/          # Route-level pages (storefront, auth, dashboard, admin)
+  store/          # Zustand stores (auth and cart)
+  lib/api/        # API client and menu API abstraction
+  data/           # Mock menu, order, and user data
+  test/           # Vitest setup and sample tests
+```
 
-## Can I connect a custom domain to my Lovable project?
+## Notes on Data and Backend
 
-Yes, you can!
+- Current flows use local mock data from `src/data/mock-data.ts`.
+- API utilities in `src/lib/api` are structured for easy migration to real backend endpoints.
+- Authentication state is persisted locally via Zustand middleware.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Build and Deployment
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
-# mp
+This is a standard Vite SPA and can be deployed to any static host (Vercel, Netlify, Cloudflare Pages, S3 + CDN, etc.) after running:
+
+```bash
+npm run build
+```
+
+Deploy the generated `dist/` directory.
