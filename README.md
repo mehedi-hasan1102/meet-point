@@ -92,4 +92,4 @@ This is a standard Vite SPA and can be deployed to any static host (Vercel, Netl
 npm run build
 ```
 
-Deploy the generated `dist/` directory.....
+Deploy the generated `dist/` directory. 
