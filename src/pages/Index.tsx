@@ -69,7 +69,7 @@ const Index = () => {
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-black/35" />
-        <div className="container relative grid gap-12 py-16 md:py-24 lg:grid-cols-[1fr_420px] lg:items-center">
+        <div className="container relative grid min-h-[68vh] gap-12 py-16 md:min-h-[82vh] md:py-24 lg:grid-cols-[1fr_420px] lg:items-center">
           <div className="animate-fade-in">
             <span className="mb-6 inline-block rounded-full border border-gold/35 bg-black/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               Welcome to Meet Point
