@@ -5,6 +5,7 @@ import { menuItems } from '@/data/mock-data';
 import { useCartStore } from '@/store/cart-store';
 import { Button } from '@/components/ui/button';
 import { Minus, Plus, ShoppingCart, ArrowLeft } from 'lucide-react';
+import { formatCurrency } from '@/lib/utils';
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -43,7 +44,7 @@ const ProductDetail = () => {
             </div>
             <h1 className="font-display text-3xl font-bold text-foreground md:text-4xl">{item.name}</h1>
             <p className="mt-4 text-muted-foreground leading-relaxed">{item.description}</p>
-            <p className="mt-6 font-display text-3xl font-bold text-primary">${item.price.toFixed(2)}</p>
+            <p className="mt-6 font-display text-3xl font-bold text-primary">{formatCurrency(item.price)}</p>
 
             {!item.available ? (
               <div className="mt-6 rounded-md bg-destructive/10 p-4 text-center text-destructive font-medium">
@@ -66,7 +67,7 @@ const ProductDetail = () => {
 
                 <Button size="lg" className="w-full md:w-auto" onClick={() => { addItem(item, quantity); setQuantity(1); }}>
                   <ShoppingCart className="mr-2 h-4 w-4" />
-                  Add to Cart — ${(item.price * quantity).toFixed(2)}
+                  Add to Cart - {formatCurrency(item.price * quantity)}
                 </Button>
               </div>
             )}

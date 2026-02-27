@@ -4,6 +4,7 @@ import { useCartStore } from '@/store/cart-store';
 import { CartItemRow } from '@/components/cart/CartItemRow';
 import { Button } from '@/components/ui/button';
 import { ShoppingBag, ArrowRight } from 'lucide-react';
+import { formatCurrency } from '@/lib/utils';
 
 const CartPage = () => {
   const { items, getSubtotal, getTax, getTotal, clearCart } = useCartStore();
@@ -48,15 +49,15 @@ const CartPage = () => {
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between text-muted-foreground">
                   <span>Subtotal</span>
-                  <span>${getSubtotal().toFixed(2)}</span>
+                  <span>{formatCurrency(getSubtotal())}</span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                   <span>Estimated Tax</span>
-                  <span>${getTax().toFixed(2)}</span>
+                  <span>{formatCurrency(getTax())}</span>
                 </div>
                 <div className="border-t border-border pt-3 flex justify-between font-display text-lg font-bold text-foreground">
                   <span>Total</span>
-                  <span>${getTotal().toFixed(2)}</span>
+                  <span>{formatCurrency(getTotal())}</span>
                 </div>
               </div>
               <Link to="/checkout" className="mt-6 block">

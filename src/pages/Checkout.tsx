@@ -5,6 +5,7 @@ import { useCartStore } from '@/store/cart-store';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { formatCurrency } from '@/lib/utils';
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -79,15 +80,15 @@ const CheckoutPage = () => {
                 {items.map((item) => (
                   <div key={item.menuItem.id} className="flex justify-between text-sm">
                     <span className="text-muted-foreground">{item.quantity}× {item.menuItem.name}</span>
-                    <span className="text-foreground">${(item.menuItem.price * item.quantity).toFixed(2)}</span>
+                    <span className="text-foreground">{formatCurrency(item.menuItem.price * item.quantity)}</span>
                   </div>
                 ))}
               </div>
               <div className="space-y-2 border-t border-border pt-3 text-sm">
-                <div className="flex justify-between text-muted-foreground"><span>Subtotal</span><span>${getSubtotal().toFixed(2)}</span></div>
-                <div className="flex justify-between text-muted-foreground"><span>Tax</span><span>${getTax().toFixed(2)}</span></div>
+                <div className="flex justify-between text-muted-foreground"><span>Subtotal</span><span>{formatCurrency(getSubtotal())}</span></div>
+                <div className="flex justify-between text-muted-foreground"><span>Tax</span><span>{formatCurrency(getTax())}</span></div>
                 <div className="border-t border-border pt-3 flex justify-between font-display text-lg font-bold text-foreground">
-                  <span>Total</span><span>${getTotal().toFixed(2)}</span>
+                  <span>Total</span><span>{formatCurrency(getTotal())}</span>
                 </div>
               </div>
               <Button type="submit" className="w-full mt-6" size="lg">Place Order</Button>

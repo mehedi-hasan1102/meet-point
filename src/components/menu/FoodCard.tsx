@@ -3,6 +3,7 @@ import type { MenuItem } from '@/data/mock-data';
 import { useCartStore } from '@/store/cart-store';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart } from 'lucide-react';
+import { formatCurrency } from '@/lib/utils';
 
 interface FoodCardProps {
   item: MenuItem;
@@ -44,7 +45,7 @@ export function FoodCard({ item }: FoodCardProps) {
             </h3>
           </Link>
           <span className="font-body text-lg font-bold text-primary whitespace-nowrap">
-            ${item.price.toFixed(2)}
+            {formatCurrency(item.price)}
           </span>
         </div>
         <p className="mt-1.5 text-sm text-muted-foreground line-clamp-2">{item.description}</p>

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Link, Navigate } from 'react-router-dom';
 import { Package, User, MapPin } from 'lucide-react';
 import { useState } from 'react';
+import { formatCurrency } from '@/lib/utils';
 
 type Tab = 'orders' | 'profile' | 'addresses';
 
@@ -51,7 +52,7 @@ const Dashboard = () => {
                 <div className="text-sm text-muted-foreground">
                   {order.items.map((i) => `${i.quantity}× ${i.menuItem.name}`).join(', ')}
                 </div>
-                <p className="mt-2 font-semibold text-foreground">${order.total.toFixed(2)}</p>
+                <p className="mt-2 font-semibold text-foreground">{formatCurrency(order.total)}</p>
               </div>
             ))}
           </div>

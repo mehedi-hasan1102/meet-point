@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { menuItems, mockOrders } from '@/data/mock-data';
 import { Button } from '@/components/ui/button';
+import { formatCurrency } from '@/lib/utils';
 import {
   LayoutDashboard, UtensilsCrossed, Package, BarChart3, Menu, X,
 } from 'lucide-react';
@@ -15,10 +16,10 @@ const adminNav: { key: AdminTab; label: string; icon: React.ElementType }[] = [
 ];
 
 const stats = [
-  { label: 'Total Revenue', value: '$12,450', change: '+12%', icon: BarChart3 },
+  { label: 'Total Revenue', value: 'Tk 12,450', change: '+12%', icon: BarChart3 },
   { label: 'Orders Today', value: '34', change: '+5', icon: Package },
   { label: 'Menu Items', value: '15', change: '', icon: UtensilsCrossed },
-  { label: 'Avg Order', value: '$38.50', change: '+3%', icon: LayoutDashboard },
+  { label: 'Avg Order', value: 'Tk 38.50', change: '+3%', icon: LayoutDashboard },
 ];
 
 const AdminPage = () => {
@@ -92,7 +93,7 @@ const AdminPage = () => {
                       <tr key={item.id} className="border-b border-border last:border-0 hover:bg-muted/30">
                         <td className="px-4 py-3 font-medium text-foreground">{item.name}</td>
                         <td className="px-4 py-3 capitalize text-muted-foreground">{item.category}</td>
-                        <td className="px-4 py-3 text-foreground">${item.price.toFixed(2)}</td>
+                        <td className="px-4 py-3 text-foreground">{formatCurrency(item.price)}</td>
                         <td className="px-4 py-3">
                           <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${item.available ? 'bg-success/10 text-success' : 'bg-destructive/10 text-destructive'}`}>
                             {item.available ? 'Available' : 'Sold Out'}
@@ -120,7 +121,7 @@ const AdminPage = () => {
                   </div>
                   <p className="text-sm text-muted-foreground">{order.customerName} — {order.deliveryAddress}</p>
                   <p className="text-sm text-muted-foreground mt-1">{order.items.map((i) => `${i.quantity}× ${i.menuItem.name}`).join(', ')}</p>
-                  <p className="mt-2 font-semibold text-foreground">${order.total.toFixed(2)}</p>
+                  <p className="mt-2 font-semibold text-foreground">{formatCurrency(order.total)}</p>
                 </div>
               ))}
             </div>

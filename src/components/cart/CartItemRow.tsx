@@ -2,6 +2,7 @@ import type { CartItem as CartItemType } from '@/store/cart-store';
 import { useCartStore } from '@/store/cart-store';
 import { Minus, Plus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { formatCurrency } from '@/lib/utils';
 
 interface CartItemProps {
   item: CartItemType;
@@ -21,10 +22,10 @@ export function CartItemRow({ item }: CartItemProps) {
         <div className="flex items-start justify-between gap-2">
           <div>
             <h4 className="font-display font-semibold text-foreground">{item.menuItem.name}</h4>
-            <p className="text-sm text-muted-foreground">${item.menuItem.price.toFixed(2)} each</p>
+            <p className="text-sm text-muted-foreground">{formatCurrency(item.menuItem.price)} each</p>
           </div>
           <span className="font-body font-bold text-foreground whitespace-nowrap">
-            ${(item.menuItem.price * item.quantity).toFixed(2)}
+            {formatCurrency(item.menuItem.price * item.quantity)}
           </span>
         </div>
         <div className="flex items-center gap-2 mt-2">
