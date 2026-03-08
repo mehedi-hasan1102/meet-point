@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Layout } from '@/components/layout/Layout';
 import { FoodCard } from '@/components/menu/FoodCard';
@@ -50,6 +50,28 @@ const testimonials = [
 
 const Index = () => {
   const categoryRailRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  useEffect(() => {
+    const rail = categoryRailRef.current;
+    if (!rail) return;
+
+    const updateScrollButtons = () => {
+      const maxScrollLeft = rail.scrollWidth - rail.clientWidth;
+      setCanScrollLeft(rail.scrollLeft > 8);
+      setCanScrollRight(maxScrollLeft - rail.scrollLeft > 8);
+    };
+
+    updateScrollButtons();
+    rail.addEventListener('scroll', updateScrollButtons, { passive: true });
+    window.addEventListener('resize', updateScrollButtons);
+
+    return () => {
+      rail.removeEventListener('scroll', updateScrollButtons);
+      window.removeEventListener('resize', updateScrollButtons);
+    };
+  }, []);
 
   const scrollCategories = (direction: 'left' | 'right') => {
     const rail = categoryRailRef.current;
@@ -124,8 +146,11 @@ const Index = () => {
           <button
             type="button"
             onClick={() => scrollCategories('left')}
-            className="absolute left-0 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md transition-opacity hover:opacity-90 md:flex"
+            className={`absolute left-0 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md transition-all duration-200 md:flex ${
+              canScrollLeft ? 'opacity-100' : 'pointer-events-none opacity-0'
+            }`}
             aria-label="Scroll categories left"
+            aria-hidden={!canScrollLeft}
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -156,8 +181,11 @@ const Index = () => {
           <button
             type="button"
             onClick={() => scrollCategories('right')}
-            className="absolute right-0 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md transition-opacity hover:opacity-90 md:flex"
+            className={`absolute right-0 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md transition-all duration-200 md:flex ${
+              canScrollRight ? 'opacity-100' : 'pointer-events-none opacity-0'
+            }`}
             aria-label="Scroll categories right"
+            aria-hidden={!canScrollRight}
           >
             <ChevronRight className="h-5 w-5" />
           </button>

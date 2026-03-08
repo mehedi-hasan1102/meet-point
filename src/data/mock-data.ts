@@ -61,6 +61,10 @@ export const categories: Category[] = [
   { id: '4', name: 'Salads', slug: 'salads', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop', description: 'Fresh & crisp' },
   { id: '5', name: 'Desserts', slug: 'desserts', image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=300&fit=crop', description: 'Sweet endings' },
   { id: '6', name: 'Drinks', slug: 'drinks', image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&h=300&fit=crop', description: 'Refreshing beverages' },
+  { id: '7', name: 'Pizza', slug: 'pizza', image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop', description: 'Stone-baked favorites' },
+  { id: '8', name: 'Pasta', slug: 'pasta', image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&h=300&fit=crop', description: 'Comfort in every bite' },
+  { id: '9', name: 'Biryani', slug: 'biryani', image: '/biryani-demo.svg', description: 'Rich aromatic rice dishes' },
+  { id: '10', name: 'Seafood', slug: 'seafood', image: 'https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=300&fit=crop', description: 'Fresh from the sea' },
 ];
 
 export const menuItems: MenuItem[] = [
@@ -79,6 +83,14 @@ export const menuItems: MenuItem[] = [
   { id: '13', name: 'Chocolate Lava Cake', description: 'Warm chocolate cake with a molten center, served with vanilla bean ice cream.', price: 11.99, image: 'https://images.unsplash.com/photo-1624353365286-3f8d62daad51?w=500&h=400&fit=crop', category: 'desserts', available: true, featured: false, tags: [] },
   { id: '14', name: 'Craft Lemonade', description: 'Fresh-squeezed lemonade with a hint of mint and honey.', price: 5.99, image: 'https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=500&h=400&fit=crop', category: 'drinks', available: true, featured: false, tags: [] },
   { id: '15', name: 'Iced Coffee', description: 'Cold-brewed coffee served over ice with your choice of milk.', price: 4.99, image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500&h=400&fit=crop', category: 'drinks', available: true, featured: false, tags: [] },
+  { id: '16', name: 'Smoked Beef Pizza', description: 'Thin crust pizza with smoked beef, mozzarella, caramelized onion, and roasted peppers.', price: 18.99, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&h=400&fit=crop', category: 'pizza', available: true, featured: true, tags: ['bestseller'] },
+  { id: '17', name: 'Pepperoni Feast Pizza', description: 'Loaded pizza with pepperoni, mozzarella, olives, and spicy tomato sauce.', price: 19.49, image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500&h=400&fit=crop', category: 'pizza', available: true, featured: false, tags: ['spicy'] },
+  { id: '18', name: 'Chicken Alfredo Pasta', description: 'Creamy alfredo pasta tossed with grilled chicken, parmesan, and cracked black pepper.', price: 17.99, image: 'https://images.unsplash.com/photo-1645112411341-6c4fd023882c?w=500&h=400&fit=crop', category: 'pasta', available: true, featured: false, tags: ['creamy'] },
+  { id: '19', name: 'Prawn Arrabbiata', description: 'Penne pasta with prawns in a spicy arrabbiata sauce finished with herbs.', price: 18.49, image: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=500&h=400&fit=crop', category: 'pasta', available: true, featured: false, tags: ['spicy'] },
+  { id: '20', name: 'Kacchi Biryani', description: 'Slow-cooked fragrant rice with tender mutton, potato, and aromatic spices.', price: 16.99, image: '/biryani-demo.svg', category: 'biryani', available: true, featured: true, tags: ['popular'] },
+  { id: '21', name: 'Chicken Dum Biryani', description: 'Long-grain basmati rice layered with tender chicken and saffron-infused spices.', price: 14.99, image: '/biryani-demo.svg', category: 'biryani', available: true, featured: false, tags: ['local favorite'] },
+  { id: '22', name: 'Grilled Butter Fish', description: 'Tender white fish fillet grilled in butter garlic sauce with sauteed vegetables.', price: 22.49, image: 'https://images.unsplash.com/photo-1559847844-5315695dadae?w=500&h=400&fit=crop', category: 'seafood', available: true, featured: false, tags: ['premium'] },
+  { id: '23', name: 'Garlic Crab Bowl', description: 'Crab meat tossed in garlic butter with herbs, lemon, and a side of steamed rice.', price: 24.99, image: 'https://images.unsplash.com/photo-1559737558-2f5a35f4523b?w=500&h=400&fit=crop', category: 'seafood', available: true, featured: true, tags: ['chef special'] },
 ];
 
 export const mockOrders: Order[] = [
