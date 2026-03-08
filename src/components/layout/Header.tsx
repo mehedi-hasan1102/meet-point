@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ShoppingCart, Menu, X, User, Phone, Clock3 } from 'lucide-react';
@@ -76,9 +77,21 @@ export function Header() {
       </div>
 
       <div className="container flex h-20 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="font-display text-3xl font-bold uppercase leading-none text-primary">Meet</span>
-          <span className="font-display text-xs tracking-[0.35em] text-muted-foreground">POINT</span>
+        <Link href="/" className="flex items-center gap-3">
+          <Image
+            src="/logo.png"
+            alt="Meet Point Cafe & Restaurant"
+            width={108}
+            height={108}
+            priority
+            className="h-16 w-auto sm:h-[4.5rem]"
+          />
+          <span className="flex flex-col leading-none">
+            <span className="font-display text-2xl font-bold uppercase text-primary sm:text-3xl">Meet Point</span>
+            <span className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-muted-foreground">
+              Cafe & Restaurant
+            </span>
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 export function Footer() {
@@ -6,9 +7,20 @@ export function Footer() {
       <div className="container py-14">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <Link href="/" className="inline-block">
-              <span className="font-display text-3xl font-bold text-gold">Meet</span>
-              <span className="ml-1 font-display text-xs tracking-[0.3em] text-warm-cream/70">POINT</span>
+            <Link href="/" className="inline-flex items-center gap-4">
+              <Image
+                src="/logo.png"
+                alt="Meet Point Cafe & Restaurant"
+                width={160}
+                height={160}
+                className="h-24 w-auto sm:h-28"
+              />
+              <span className="flex flex-col leading-none">
+                <span className="font-display text-3xl font-bold uppercase text-gold">Meet Point</span>
+                <span className="mt-2 text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-warm-cream/70">
+                  Cafe & Restaurant
+                </span>
+              </span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-warm-cream/70">
               A premium food destination with dine-in, takeaway, and home delivery service.
