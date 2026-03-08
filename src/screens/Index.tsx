@@ -4,13 +4,16 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Layout } from '@/components/layout/Layout';
 import { FoodCard } from '@/components/menu/FoodCard';
-import { menuItems, categories } from '@/data/mock-data';
+import { menuItems } from '@/data/mock-data';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CalendarCheck2, ChevronLeft, ChevronRight, PhoneCall, Star } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
 
 const featured = menuItems.filter((i) => i.featured).slice(0, 4);
 const signaturePicks = menuItems.slice(0, 3);
+const showcaseItems = ['4', '20', '22', '14', '7', '12']
+  .map((id) => menuItems.find((item) => item.id === id))
+  .filter((item): item is NonNullable<typeof item> => Boolean(item));
 
 const comboOffers = [
   {
@@ -49,12 +52,12 @@ const testimonials = [
 ];
 
 const Index = () => {
-  const categoryRailRef = useRef<HTMLDivElement>(null);
+  const showcaseRailRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
   useEffect(() => {
-    const rail = categoryRailRef.current;
+    const rail = showcaseRailRef.current;
     if (!rail) return;
 
     const updateScrollButtons = () => {
@@ -73,16 +76,16 @@ const Index = () => {
     };
   }, []);
 
-  const scrollCategories = (direction: 'left' | 'right') => {
-    const rail = categoryRailRef.current;
+  const scrollShowcase = (direction: 'left' | 'right') => {
+    const rail = showcaseRailRef.current;
     if (!rail) return;
-    const step = Math.max(260, Math.floor(rail.clientWidth * 0.45));
+    const step = Math.max(260, Math.floor(rail.clientWidth * 0.52));
     rail.scrollBy({ left: direction === 'left' ? -step : step, behavior: 'smooth' });
   };
 
   return (
     <Layout>
-      <section className="alk-hero relative overflow-hidden">
+      <section className="alk-hero relative -mt-20 overflow-hidden">
         <video
           className="absolute inset-0 h-full w-full object-cover"
           src="/hero.mp4"
@@ -93,7 +96,7 @@ const Index = () => {
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-black/35" />
-        <div className="container relative grid min-h-[68vh] gap-12 py-16 md:min-h-[82vh] md:py-24 lg:grid-cols-[1fr_420px] lg:items-center">
+        <div className="container relative grid min-h-screen gap-12 pb-16 pt-28 md:pb-24 md:pt-32 lg:grid-cols-[1fr_420px] lg:items-center">
           <div className="animate-fade-in">
             <span className="mb-6 inline-block rounded-full border border-gold/35 bg-black/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               Welcome to Meet Point
@@ -141,54 +144,76 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="border-b border-border bg-[#ece7de] py-10">
-        <div className="container relative">
-          <button
-            type="button"
-            onClick={() => scrollCategories('left')}
-            className={`absolute left-0 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md transition-all duration-200 md:flex ${
-              canScrollLeft ? 'opacity-100' : 'pointer-events-none opacity-0'
-            }`}
-            aria-label="Scroll categories left"
-            aria-hidden={!canScrollLeft}
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
+      <section className="border-b border-border bg-[#efe8dc] py-14 md:py-16">
+        <div className="container">
+          <div className="mb-8 flex flex-col gap-5 md:mb-10 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-2xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#b47b31]">Signature Selection</p>
+              <h2 className="mt-3 font-display text-3xl font-bold text-[#1f1a17] md:text-4xl">
+                Popular Dishes, Presented Cleanly
+              </h2>
+              <p className="mt-3 text-sm leading-7 text-[#5d5146] md:text-base">
+                A curated showcase inspired by the plated menu strip on Alkaderia, adapted into a cleaner and more consistent presentation for Meet Point.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => scrollShowcase('left')}
+                className={`flex h-12 w-12 items-center justify-center rounded-full bg-[#ef2f2f] text-white shadow-[0_12px_24px_rgba(239,47,47,0.22)] transition-all duration-200 hover:bg-[#db2323] ${
+                  canScrollLeft ? 'opacity-100' : 'pointer-events-none opacity-40'
+                }`}
+                aria-label="Scroll showcase left"
+                aria-hidden={!canScrollLeft}
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollShowcase('right')}
+                className={`flex h-12 w-12 items-center justify-center rounded-full bg-[#ef2f2f] text-white shadow-[0_12px_24px_rgba(239,47,47,0.22)] transition-all duration-200 hover:bg-[#db2323] ${
+                  canScrollRight ? 'opacity-100' : 'pointer-events-none opacity-40'
+                }`}
+                aria-label="Scroll showcase right"
+                aria-hidden={!canScrollRight}
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
 
           <div
-            ref={categoryRailRef}
-            className="mx-auto flex snap-x snap-mandatory gap-8 overflow-x-auto px-2 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:px-16"
+            ref={showcaseRailRef}
+            className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-1 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {categories.map((cat) => (
+            {showcaseItems.map((item) => (
               <Link
-                key={cat.id}
-                href={`/menu?category=${cat.slug}`}
-                className="group min-w-[170px] shrink-0 snap-center text-center"
+                key={item.id}
+                href={`/menu/${item.id}`}
+                className="group min-w-[170px] shrink-0 snap-start text-center sm:min-w-[185px] lg:min-w-[205px]"
               >
-                <div className="mx-auto h-40 w-40 overflow-hidden rounded-full border-4 border-white shadow-lg transition-transform duration-300 group-hover:scale-105">
-                  <img
-                    src={cat.image}
-                    alt={cat.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                  />
+                <div className="mx-auto flex h-40 w-40 items-center justify-center rounded-full bg-[radial-gradient(circle_at_30%_30%,#eef6ff,transparent_42%),linear-gradient(180deg,#dce8f3_0%,#c6d9e7_100%)] p-3 shadow-[0_18px_32px_rgba(79,63,45,0.12)] transition-transform duration-300 group-hover:-translate-y-1 sm:h-44 sm:w-44 lg:h-48 lg:w-48">
+                  <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full border-[6px] border-[#f7fbff] bg-[#d7e6f1] shadow-[inset_0_10px_20px_rgba(255,255,255,0.55),inset_0_-10px_18px_rgba(90,112,129,0.1)]">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
-                <p className="mt-4 text-sm font-semibold text-foreground">{cat.name}</p>
+                <div className="mt-5">
+                  <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#9a8671]">
+                    {item.category.replace('-', ' ')}
+                  </p>
+                  <p className="mx-auto mt-2 max-w-[14rem] text-sm font-semibold leading-6 text-[#1f1a17] sm:text-[15px]">
+                    {item.name}
+                  </p>
+                </div>
               </Link>
             ))}
           </div>
-
-          <button
-            type="button"
-            onClick={() => scrollCategories('right')}
-            className={`absolute right-0 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md transition-all duration-200 md:flex ${
-              canScrollRight ? 'opacity-100' : 'pointer-events-none opacity-0'
-            }`}
-            aria-label="Scroll categories right"
-            aria-hidden={!canScrollRight}
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
         </div>
       </section>
 

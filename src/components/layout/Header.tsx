@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShoppingCart, Menu, X, User, Phone, Clock3 } from 'lucide-react';
+import { ShoppingCart, Menu, X, User } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useCartStore } from '@/store/cart-store';
 import { useAuthStore } from '@/store/auth-store';
@@ -17,23 +17,21 @@ const navLinks = [
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [hideTopStrip, setHideTopStrip] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const lastScrollYRef = useRef(0);
   const tickingRef = useRef(false);
   const pathname = usePathname();
+  const isHomePage = pathname === '/';
+  const isTransparent = isHomePage && !isScrolled && !mobileOpen;
   const itemCount = useCartStore((s) => (s.hasHydrated ? s.getItemCount() : 0));
   const { isAuthenticated, logout, hasHydrated } = useAuthStore();
 
   useEffect(() => {
     const updateTopStripVisibility = () => {
       const currentY = window.scrollY;
-      const deltaY = currentY - lastScrollYRef.current;
+      const nextIsScrolled = currentY > 24;
 
-      setHideTopStrip((previous) => {
-        if (currentY <= 24) return false;
-        if (Math.abs(deltaY) < 4) return previous;
-        return deltaY > 0;
-      });
+      setIsScrolled(nextIsScrolled);
 
       lastScrollYRef.current = currentY;
       tickingRef.current = false;
@@ -49,33 +47,16 @@ export function Header() {
     updateTopStripVisibility();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [isHomePage]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/85">
-      <div
-        className={`hidden overflow-hidden bg-charcoal text-warm-cream/85 transition-[max-height,opacity,transform,border-color] duration-500 ease-out md:block ${
-          hideTopStrip
-            ? '-translate-y-2 max-h-0 border-transparent opacity-0'
-            : 'translate-y-0 max-h-10 border-b border-border/60 opacity-100'
-        }`}
-        aria-hidden={hideTopStrip}
-      >
-        <div className="container flex h-10 items-center justify-between text-xs">
-          <div className="flex items-center gap-6">
-            <span className="inline-flex items-center gap-2">
-              <Phone className="h-3.5 w-3.5 text-gold" />
-              +880 1712-345678
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <Clock3 className="h-3.5 w-3.5 text-gold" />
-              Open Daily: 10:00 AM - 11:30 PM
-            </span>
-          </div>
-          <p className="text-warm-cream/70">Premium Family Restaurant</p>
-        </div>
-      </div>
-
+    <header
+      className={`sticky top-0 z-50 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ${
+        isTransparent
+          ? 'border-b-0 bg-transparent shadow-none backdrop-blur-0'
+          : 'border-b border-border/70 bg-background/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/85'
+      }`}
+    >
       <div className="container flex h-20 items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
           <Image
@@ -87,8 +68,18 @@ export function Header() {
             className="h-16 w-auto sm:h-[4.5rem]"
           />
           <span className="flex flex-col leading-none">
-            <span className="font-display text-2xl font-bold uppercase text-primary sm:text-3xl">Meet Point</span>
-            <span className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-muted-foreground">
+            <span
+              className={`font-display text-2xl font-bold uppercase sm:text-3xl ${
+                isTransparent ? 'text-warm-cream' : 'text-primary'
+              }`}
+            >
+              Meet Point
+            </span>
+            <span
+              className={`text-[0.65rem] font-semibold uppercase tracking-[0.28em] ${
+                isTransparent ? 'text-warm-cream/72' : 'text-muted-foreground'
+              }`}
+            >
               Cafe & Restaurant
             </span>
           </span>
@@ -100,7 +91,11 @@ export function Header() {
               key={link.to}
               href={link.to}
               className={`text-[0.95rem] font-semibold tracking-wide transition-colors hover:text-primary ${
-                pathname === link.to ? 'text-primary' : 'text-foreground/80'
+                pathname === link.to
+                  ? 'text-primary'
+                  : isTransparent
+                    ? 'text-warm-cream/85 hover:text-warm-cream'
+                    : 'text-foreground/80'
               }`}
             >
               {link.label}
@@ -109,7 +104,12 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <Link href="/cart" className="relative p-2.5 text-foreground transition-colors hover:text-primary">
+          <Link
+            href="/cart"
+            className={`relative p-2.5 transition-colors hover:text-primary ${
+              isTransparent ? 'text-warm-cream' : 'text-foreground'
+            }`}
+          >
             <ShoppingCart className="h-5 w-5" />
             {itemCount > 0 && (
               <span className="absolute -right-1 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
@@ -120,17 +120,27 @@ export function Header() {
 
           {hasHydrated && isAuthenticated ? (
             <div className="hidden items-center gap-2 md:flex">
-              <Button asChild variant="ghost" size="sm">
+              <Button asChild variant="ghost" size="sm" className={isTransparent ? 'text-warm-cream hover:bg-white/10 hover:text-warm-cream' : ''}>
                 <Link href="/dashboard">
                   <User className="mr-1 h-4 w-4" /> Account
                 </Link>
               </Button>
-              <Button variant="ghost" size="sm" onClick={logout}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={logout}
+                className={isTransparent ? 'text-warm-cream hover:bg-white/10 hover:text-warm-cream' : ''}
+              >
                 Logout
               </Button>
             </div>
           ) : hasHydrated ? (
-            <Button asChild className="hidden md:inline-flex" variant="ghost" size="sm">
+            <Button
+              asChild
+              className={`hidden md:inline-flex ${isTransparent ? 'text-warm-cream hover:bg-white/10 hover:text-warm-cream' : ''}`}
+              variant="ghost"
+              size="sm"
+            >
               <Link href="/login">Sign In</Link>
             </Button>
           ) : null}
@@ -140,7 +150,7 @@ export function Header() {
           </Button>
 
           <button
-            className="p-2 text-foreground lg:hidden"
+            className={`p-2 lg:hidden ${isTransparent ? 'text-warm-cream' : 'text-foreground'}`}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -172,12 +182,6 @@ export function Header() {
             ) : hasHydrated ? (
               <Link href="/login" onClick={() => setMobileOpen(false)} className="py-2 text-sm font-semibold text-foreground/80">Sign In</Link>
             ) : null}
-            <div className="mt-2 border-t border-border pt-3 text-xs text-muted-foreground">
-              <p className="inline-flex items-center gap-2">
-                <Phone className="h-3.5 w-3.5" />
-                +880 1712-345678
-              </p>
-            </div>
           </nav>
         </div>
       )}
