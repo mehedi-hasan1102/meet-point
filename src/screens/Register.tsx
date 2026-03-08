@@ -26,18 +26,18 @@ const RegisterPage = () => {
       <div className="container flex items-center justify-center py-16 md:py-24">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <h1 className="font-display text-3xl font-bold text-foreground">Create Account</h1>
-            <p className="mt-2 text-muted-foreground">Join Meet POINT today</p>
+            <h1 className="font-display text-3xl font-bold text-foreground">একাউন্ট তৈরি করুন</h1>
+            <p className="mt-2 text-muted-foreground">আজই Meet POINT এর সাথে যুক্ত হোন</p>
           </div>
 
           <form onSubmit={handleSubmit} className="rounded-lg border border-border bg-card p-6 space-y-4">
-            <div><Label htmlFor="name">Full Name</Label><Input id="name" value={form.name} onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))} required /></div>
-            <div><Label htmlFor="email">Email</Label><Input id="email" type="email" value={form.email} onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))} required /></div>
-            <div><Label htmlFor="password">Password</Label><Input id="password" type="password" value={form.password} onChange={(e) => setForm((p) => ({ ...p, password: e.target.value }))} required /></div>
-            <div><Label htmlFor="confirm">Confirm Password</Label><Input id="confirm" type="password" value={form.confirm} onChange={(e) => setForm((p) => ({ ...p, confirm: e.target.value }))} required /></div>
-            <Button type="submit" className="w-full" size="lg">Create Account</Button>
+            <div><Label htmlFor="name">পূর্ণ নাম</Label><Input id="name" value={form.name} onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))} required /></div>
+            <div><Label htmlFor="email">ইমেইল</Label><Input id="email" type="email" value={form.email} onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))} required /></div>
+            <div><Label htmlFor="password">পাসওয়ার্ড</Label><Input id="password" type="password" value={form.password} onChange={(e) => setForm((p) => ({ ...p, password: e.target.value }))} required /></div>
+            <div><Label htmlFor="confirm">পাসওয়ার্ড নিশ্চিত করুন</Label><Input id="confirm" type="password" value={form.confirm} onChange={(e) => setForm((p) => ({ ...p, confirm: e.target.value }))} required /></div>
+            <Button type="submit" className="w-full" size="lg">একাউন্ট তৈরি করুন</Button>
             <p className="text-center text-sm text-muted-foreground">
-              Already have an account? <Link href="/login" className="text-primary hover:underline font-medium">Sign In</Link>
+              আগে থেকেই একাউন্ট আছে? <Link href="/login" className="text-primary hover:underline font-medium">সাইন ইন</Link>
             </p>
           </form>
         </div>

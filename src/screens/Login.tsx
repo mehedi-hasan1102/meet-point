@@ -26,17 +26,17 @@ const LoginPage = () => {
       <div className="container flex items-center justify-center py-16 md:py-24">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <h1 className="font-display text-3xl font-bold text-foreground">Welcome Back</h1>
-            <p className="mt-2 text-muted-foreground">Sign in to your account</p>
+            <h1 className="font-display text-3xl font-bold text-foreground">আবারও স্বাগতম</h1>
+            <p className="mt-2 text-muted-foreground">আপনার একাউন্টে সাইন ইন করুন</p>
           </div>
 
           <form onSubmit={handleSubmit} className="rounded-lg border border-border bg-card p-6 space-y-4">
-            <div><Label htmlFor="email">Email</Label><Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required /></div>
-            <div><Label htmlFor="password">Password</Label><Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required /></div>
-            <div className="text-right"><Link href="/forgot-password" className="text-sm text-primary hover:underline">Forgot password?</Link></div>
-            <Button type="submit" className="w-full" size="lg">Sign In</Button>
+            <div><Label htmlFor="email">ইমেইল</Label><Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required /></div>
+            <div><Label htmlFor="password">পাসওয়ার্ড</Label><Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required /></div>
+            <div className="text-right"><Link href="/forgot-password" className="text-sm text-primary hover:underline">পাসওয়ার্ড ভুলে গেছেন?</Link></div>
+            <Button type="submit" className="w-full" size="lg">সাইন ইন</Button>
             <p className="text-center text-sm text-muted-foreground">
-              Don&apos;t have an account? <Link href="/register" className="text-primary hover:underline font-medium">Register</Link>
+              একাউন্ট নেই? <Link href="/register" className="text-primary hover:underline font-medium">রেজিস্টার করুন</Link>
             </p>
           </form>
         </div>

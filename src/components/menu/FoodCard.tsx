@@ -27,13 +27,13 @@ export function FoodCard({ item }: FoodCardProps) {
           {!item.available && (
             <div className="absolute inset-0 flex items-center justify-center bg-foreground/60">
               <span className="rounded-full bg-background px-4 py-1.5 text-sm font-semibold text-foreground">
-                Sold Out
+                স্টক শেষ
               </span>
             </div>
           )}
           {item.tags.includes('popular') && item.available && (
             <span className="absolute left-3 top-3 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
-              Popular
+              জনপ্রিয়
             </span>
           )}
         </div>
@@ -59,7 +59,7 @@ export function FoodCard({ item }: FoodCardProps) {
             onClick={() => addItem(item)}
           >
             <ShoppingCart className="mr-2 h-4 w-4" />
-            Add to Cart
+            কার্টে যোগ করুন
           </Button>
         </div>
       </div>

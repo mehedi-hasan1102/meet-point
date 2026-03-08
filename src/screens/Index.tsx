@@ -4,33 +4,34 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Layout } from '@/components/layout/Layout';
 import { FoodCard } from '@/components/menu/FoodCard';
-import { menuItems } from '@/data/mock-data';
+import { categories, menuItems } from '@/data/mock-data';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CalendarCheck2, ChevronLeft, ChevronRight, PhoneCall, Star } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
 
 const featured = menuItems.filter((i) => i.featured).slice(0, 4);
 const signaturePicks = menuItems.slice(0, 3);
+const categoryLabelMap = Object.fromEntries(categories.map((category) => [category.slug, category.name]));
 const showcaseItems = ['4', '20', '22', '14', '7', '12']
   .map((id) => menuItems.find((item) => item.id === id))
   .filter((item): item is NonNullable<typeof item> => Boolean(item));
 
 const comboOffers = [
   {
-    name: 'Family Combo',
-    details: '2 Burgers, 1 Wings Platter, 2 Drinks',
+    name: 'ফ্যামিলি কম্বো',
+    details: '২টি বার্গার, ১টি উইংস প্ল্যাটার, ২টি ড্রিংকস',
     price: 34.99,
     image: menuItems[6].image,
   },
   {
-    name: 'Couple Delight',
-    details: '1 Ribeye, 1 Salmon, 2 Fresh Juices',
+    name: 'কাপল ডিলাইট',
+    details: '১টি স্টেক, ১টি সালমন, ২টি ফ্রেশ জুস',
     price: 49.99,
     image: menuItems[4].image,
   },
   {
-    name: 'Snack Time Box',
-    details: 'Calamari, Bruschetta, Lemonade',
+    name: 'স্ন্যাক টাইম বক্স',
+    details: 'ক্যালামারি, ব্রুশকেটা, লেমনেড',
     price: 21.99,
     image: menuItems[0].image,
   },
@@ -38,16 +39,16 @@ const comboOffers = [
 
 const testimonials = [
   {
-    name: 'Nadia Akter',
-    comment: 'Great food quality and service. The family platter was exactly what we needed for a weekend dinner.',
+    name: 'নাদিয়া আক্তার',
+    comment: 'খাবারের মান এবং সার্ভিস দুটোই অসাধারণ। ফ্যামিলি প্ল্যাটারটি আমাদের সাপ্তাহিক ডিনারের জন্য একদম পারফেক্ট ছিল।',
   },
   {
-    name: 'Masud Rana',
-    comment: 'Delivery was fast and the burger combo arrived warm. Definitely ordering again.',
+    name: 'মাসুদ রানা',
+    comment: 'ডেলিভারি খুব দ্রুত ছিল এবং বার্গার কম্বো গরম অবস্থায় পৌঁছেছে। আবার অবশ্যই অর্ডার করব।',
   },
   {
-    name: 'Jerin Sultana',
-    comment: 'Clean environment, tasty dishes, and friendly staff. One of my favorite places now.',
+    name: 'জেরিন সুলতানা',
+    comment: 'পরিষ্কার পরিবেশ, সুস্বাদু খাবার আর আন্তরিক স্টাফ। এখন এটা আমার খুব পছন্দের একটি জায়গা।',
   },
 ];
 
@@ -98,21 +99,21 @@ const Index = () => {
         <div className="absolute inset-0 bg-black/35" />
         <div className="container relative grid min-h-screen gap-12 pb-16 pt-28 md:pb-24 md:pt-32 lg:grid-cols-[1fr_420px] lg:items-center">
           <div className="animate-fade-in">
-            <span className="mb-6 inline-block rounded-full border border-gold/35 bg-black/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-              Welcome to Meet Point
+            <span className="bn-label mb-6 inline-block rounded-full border border-gold/35 bg-black/20 px-4 py-1.5 text-xs font-semibold text-gold">
+              মিট পয়েন্টে স্বাগতম
             </span>
             <h1 className="max-w-2xl font-display text-4xl font-bold leading-tight text-warm-cream sm:text-5xl md:text-6xl">
-              Authentic Taste,
+              আসল স্বাদ,
               <br />
-              Crafted With Care
+              যত্নে পরিবেশন
             </h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-warm-cream/80 md:text-lg">
-              Enjoy restaurant-style meals, combo offers, and home delivery from one place. Fresh ingredients and rich flavors in every bite.
+              এক জায়গায় পেয়ে যান রেস্টুরেন্ট-স্টাইলের খাবার, স্পেশাল কম্বো অফার এবং হোম ডেলিভারি। প্রতিটি পদে তাজা উপকরণ ও ঘরোয়া সমৃদ্ধ স্বাদ।
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Button asChild size="lg" className="gold-gradient border-0 px-7 text-charcoal hover:opacity-90">
                 <Link href="/menu">
-                  Explore Menu <ArrowRight className="ml-2 h-4 w-4" />
+                  মেনু দেখুন <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button
@@ -120,21 +121,21 @@ const Index = () => {
                 variant="outline"
                 className="border-warm-cream/40 bg-transparent px-7 text-warm-cream hover:bg-warm-cream/10 hover:text-warm-cream"
               >
-                Book a Table
+                টেবিল বুক করুন
               </Button>
             </div>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-black/30 p-6 text-warm-cream backdrop-blur-sm">
-            <h2 className="font-display text-2xl font-semibold">Today&apos;s Signature Picks</h2>
-            <p className="mt-1 text-sm text-warm-cream/70">Chef recommended dishes</p>
+            <h2 className="font-display text-2xl font-semibold">আজকের সিগনেচার আইটেম</h2>
+            <p className="mt-1 text-sm text-warm-cream/70">শেফের বিশেষ পছন্দের পদ</p>
             <div className="mt-6 space-y-4">
               {signaturePicks.map((item) => (
                 <div key={item.id} className="flex items-center gap-3 rounded-xl bg-white/5 p-3">
                   <img src={item.image} alt={item.name} className="h-16 w-16 rounded-lg object-cover" loading="lazy" />
                   <div className="flex-1">
                     <h3 className="text-sm font-semibold">{item.name}</h3>
-                    <p className="text-xs text-warm-cream/65">{item.category.toUpperCase()}</p>
+                    <p className="text-xs text-warm-cream/65">{categoryLabelMap[item.category] ?? item.category}</p>
                   </div>
                   <span className="text-sm font-bold text-gold">{formatCurrency(item.price)}</span>
                 </div>
@@ -148,12 +149,12 @@ const Index = () => {
         <div className="container">
           <div className="mb-8 flex flex-col gap-5 md:mb-10 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#b47b31]">Signature Selection</p>
+              <p className="bn-label text-xs font-semibold text-[#b47b31]">সিগনেচার সিলেকশন</p>
               <h2 className="mt-3 font-display text-3xl font-bold text-[#1f1a17] md:text-4xl">
-                Popular Dishes, Presented Cleanly
+                জনপ্রিয় পদ, সুন্দর উপস্থাপনায়
               </h2>
               <p className="mt-3 text-sm leading-7 text-[#5d5146] md:text-base">
-                A curated showcase inspired by the plated menu strip on Alkaderia, adapted into a cleaner and more consistent presentation for Meet Point.
+                আলকাদেরিয়ার প্লেটেড মেনু স্ট্রিপ থেকে অনুপ্রাণিত হয়ে মিট পয়েন্টের জন্য আরও পরিপাটি ও সামঞ্জস্যপূর্ণভাবে এই সেকশনটি সাজানো হয়েছে।
               </p>
             </div>
 
@@ -204,8 +205,8 @@ const Index = () => {
                   </div>
                 </div>
                 <div className="mt-5">
-                  <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#9a8671]">
-                    {item.category.replace('-', ' ')}
+                  <p className="bn-label text-[0.72rem] font-semibold text-[#9a8671]">
+                    {categoryLabelMap[item.category] ?? item.category}
                   </p>
                   <p className="mx-auto mt-2 max-w-[14rem] text-sm font-semibold leading-6 text-[#1f1a17] sm:text-[15px]">
                     {item.name}
@@ -221,12 +222,12 @@ const Index = () => {
         <div className="container">
           <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Favorite Menu</p>
-              <h2 className="mt-3 font-display text-3xl font-bold text-foreground md:text-4xl">Most Loved Dishes</h2>
+              <p className="bn-label text-xs font-semibold text-primary">প্রিয় মেনু</p>
+              <h2 className="mt-3 font-display text-3xl font-bold text-foreground md:text-4xl">সবচেয়ে পছন্দের পদ</h2>
             </div>
             <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
               <Link href="/menu">
-                See All Items
+                সব আইটেম দেখুন
               </Link>
             </Button>
           </div>
@@ -241,8 +242,8 @@ const Index = () => {
       <section className="py-16 md:py-24">
         <div className="container">
           <div className="mb-10 text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Special Deals</p>
-            <h2 className="mt-3 font-display text-3xl font-bold text-foreground md:text-4xl">Combo Offer</h2>
+            <p className="bn-label text-xs font-semibold text-primary">বিশেষ অফার</p>
+            <h2 className="mt-3 font-display text-3xl font-bold text-foreground md:text-4xl">কম্বো অফার</h2>
           </div>
           <div className="grid gap-5 md:grid-cols-3">
             {comboOffers.map((combo) => (
@@ -258,7 +259,7 @@ const Index = () => {
                   <h3 className="font-display text-2xl font-semibold text-foreground">{combo.name}</h3>
                   <p className="mt-2 text-sm text-muted-foreground">{combo.details}</p>
                   <Link href="/menu" className="mt-4 inline-flex text-sm font-semibold text-primary">
-                    Order This Combo <ArrowRight className="ml-1 h-4 w-4" />
+                    এই কম্বো অর্ডার করুন <ArrowRight className="ml-1 h-4 w-4" />
                   </Link>
                 </div>
               </div>
@@ -270,8 +271,8 @@ const Index = () => {
       <section className="bg-muted/40 py-16">
         <div className="container">
           <div className="mb-8 text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Testimonials</p>
-            <h2 className="mt-3 font-display text-3xl font-bold text-foreground">What Guests Say</h2>
+            <p className="bn-label text-xs font-semibold text-primary">গ্রাহকের মতামত</p>
+            <h2 className="mt-3 font-display text-3xl font-bold text-foreground">অতিথিরা যা বলছেন</h2>
           </div>
           <div className="grid gap-5 md:grid-cols-3">
             {testimonials.map((item) => (
@@ -291,14 +292,14 @@ const Index = () => {
 
       <section className="hero-gradient py-16 md:py-20">
         <div className="container text-center">
-          <h2 className="font-display text-3xl font-bold text-primary-foreground md:text-4xl">Book Your Table Today</h2>
+          <h2 className="font-display text-3xl font-bold text-primary-foreground md:text-4xl">আজই আপনার টেবিল বুক করুন</h2>
           <p className="mx-auto mt-4 max-w-xl text-primary-foreground/75">
-            Reserve your seat for family dining, birthday events, or casual meetings. Call us or place an online order anytime.
+            পারিবারিক আড্ডা, জন্মদিনের আয়োজন বা ক্যাজুয়াল মিটিংয়ের জন্য এখনই আপনার আসন নিশ্চিত করুন। যেকোনো সময় কল করুন বা অনলাইনে অর্ডার দিন।
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Button size="lg" className="gold-gradient border-0 px-7 text-charcoal hover:opacity-90">
               <CalendarCheck2 className="mr-2 h-4 w-4" />
-              Reserve Table
+              টেবিল রিজার্ভ করুন
             </Button>
             <Button
               size="lg"

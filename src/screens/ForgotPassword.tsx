@@ -20,23 +20,23 @@ const ForgotPassword = () => {
     <Layout>
       <div className="container flex items-center justify-center py-16 md:py-24">
         <div className="w-full max-w-md text-center">
-          <h1 className="font-display text-3xl font-bold text-foreground">Reset Password</h1>
-          <p className="mt-2 text-muted-foreground">Enter your email and we'll send a reset link</p>
+          <h1 className="font-display text-3xl font-bold text-foreground">পাসওয়ার্ড রিসেট করুন</h1>
+          <p className="mt-2 text-muted-foreground">আপনার ইমেইল দিন, আমরা একটি রিসেট লিংক পাঠিয়ে দেব</p>
 
           {sent ? (
             <div className="mt-8 rounded-lg border border-border bg-card p-6">
-              <p className="text-success font-medium">Reset link sent!</p>
-              <p className="mt-2 text-sm text-muted-foreground">Check your inbox for instructions.</p>
+              <p className="text-success font-medium">রিসেট লিংক পাঠানো হয়েছে!</p>
+              <p className="mt-2 text-sm text-muted-foreground">নির্দেশনা দেখতে আপনার ইনবক্স চেক করুন।</p>
               <Button asChild className="mt-4" variant="outline">
-                <Link href="/login">Back to Login</Link>
+                <Link href="/login">লগইনে ফিরে যান</Link>
               </Button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="mt-8 rounded-lg border border-border bg-card p-6 space-y-4 text-left">
-              <div><Label htmlFor="email">Email</Label><Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required /></div>
-              <Button type="submit" className="w-full" size="lg">Send Reset Link</Button>
+              <div><Label htmlFor="email">ইমেইল</Label><Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required /></div>
+              <Button type="submit" className="w-full" size="lg">রিসেট লিংক পাঠান</Button>
               <p className="text-center text-sm text-muted-foreground">
-                <Link href="/login" className="text-primary hover:underline">Back to Login</Link>
+                <Link href="/login" className="text-primary hover:underline">লগইনে ফিরে যান</Link>
               </p>
             </form>
           )}

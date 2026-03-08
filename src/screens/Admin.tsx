@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { menuItems, mockOrders } from '@/data/mock-data';
+import { categories, menuItems, mockOrders } from '@/data/mock-data';
 import { Button } from '@/components/ui/button';
 import { formatCurrency } from '@/lib/utils';
 import {
@@ -11,18 +11,28 @@ import {
 
 type AdminTab = 'overview' | 'menu' | 'orders';
 
+const statusLabelMap: Record<string, string> = {
+  pending: 'অপেক্ষমাণ',
+  preparing: 'প্রস্তুত হচ্ছে',
+  ready: 'প্রস্তুত',
+  delivered: 'ডেলিভারড',
+  cancelled: 'বাতিল',
+};
+
 const adminNav: { key: AdminTab; label: string; icon: React.ElementType }[] = [
-  { key: 'overview', label: 'Overview', icon: LayoutDashboard },
-  { key: 'menu', label: 'Menu Items', icon: UtensilsCrossed },
-  { key: 'orders', label: 'Orders', icon: Package },
+  { key: 'overview', label: 'ওভারভিউ', icon: LayoutDashboard },
+  { key: 'menu', label: 'মেনু আইটেম', icon: UtensilsCrossed },
+  { key: 'orders', label: 'অর্ডার', icon: Package },
 ];
 
 const stats = [
-  { label: 'Total Revenue', value: 'Tk 12,450', change: '+12%', icon: BarChart3 },
-  { label: 'Orders Today', value: '34', change: '+5', icon: Package },
-  { label: 'Menu Items', value: '15', change: '', icon: UtensilsCrossed },
-  { label: 'Avg Order', value: 'Tk 38.50', change: '+3%', icon: LayoutDashboard },
+  { label: 'মোট বিক্রি', value: '৳ ১২,৪৫০', change: '+১২%', icon: BarChart3 },
+  { label: 'আজকের অর্ডার', value: '৩৪', change: '+৫', icon: Package },
+  { label: 'মেনু আইটেম', value: '২৩', change: '', icon: UtensilsCrossed },
+  { label: 'গড় অর্ডার', value: '৳ ৩৮.৫০', change: '+৩%', icon: LayoutDashboard },
 ];
+
+const categoryLabelMap = Object.fromEntries(categories.map((category) => [category.slug, category.name]));
 
 const AdminPage = () => {
   const [tab, setTab] = useState<AdminTab>('overview');
@@ -33,7 +43,7 @@ const AdminPage = () => {
       {/* Sidebar */}
       <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-charcoal text-warm-cream transform transition-transform lg:relative lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex items-center justify-between p-5 border-b border-warm-cream/10">
-          <Link href="/" className="font-display text-xl font-bold text-gold">Meet Admin</Link>
+          <Link href="/" className="font-display text-xl font-bold text-gold">মিট অ্যাডমিন</Link>
           <button className="lg:hidden text-warm-cream" onClick={() => setSidebarOpen(false)}><X className="h-5 w-5" /></button>
         </div>
         <nav className="p-4 space-y-1">
@@ -57,7 +67,7 @@ const AdminPage = () => {
       <div className="flex-1 min-w-0">
         <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-border bg-background px-4 py-3 lg:px-8">
           <button className="lg:hidden" onClick={() => setSidebarOpen(true)}><Menu className="h-5 w-5" /></button>
-          <h2 className="font-display text-lg font-semibold capitalize">{tab === 'overview' ? 'Dashboard' : tab}</h2>
+          <h2 className="font-display text-lg font-semibold">{tab === 'overview' ? 'ড্যাশবোর্ড' : adminNav.find((item) => item.key === tab)?.label}</h2>
         </header>
 
         <div className="p-4 lg:p-8">
@@ -79,26 +89,26 @@ const AdminPage = () => {
           {tab === 'menu' && (
             <div className="rounded-lg border border-border bg-card overflow-hidden">
               <div className="flex items-center justify-between p-4 border-b border-border">
-                <h3 className="font-display font-semibold">Menu Items</h3>
-                <Button size="sm">+ Add Item</Button>
+                <h3 className="font-display font-semibold">মেনু আইটেম</h3>
+                <Button size="sm">+ আইটেম যোগ করুন</Button>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead><tr className="border-b border-border bg-muted/50">
-                    <th className="px-4 py-3 text-left font-medium text-muted-foreground">Item</th>
-                    <th className="px-4 py-3 text-left font-medium text-muted-foreground">Category</th>
-                    <th className="px-4 py-3 text-left font-medium text-muted-foreground">Price</th>
-                    <th className="px-4 py-3 text-left font-medium text-muted-foreground">Status</th>
+                    <th className="px-4 py-3 text-left font-medium text-muted-foreground">আইটেম</th>
+                    <th className="px-4 py-3 text-left font-medium text-muted-foreground">ক্যাটাগরি</th>
+                    <th className="px-4 py-3 text-left font-medium text-muted-foreground">দাম</th>
+                    <th className="px-4 py-3 text-left font-medium text-muted-foreground">স্ট্যাটাস</th>
                   </tr></thead>
                   <tbody>
                     {menuItems.map((item) => (
                       <tr key={item.id} className="border-b border-border last:border-0 hover:bg-muted/30">
                         <td className="px-4 py-3 font-medium text-foreground">{item.name}</td>
-                        <td className="px-4 py-3 capitalize text-muted-foreground">{item.category}</td>
+                        <td className="px-4 py-3 text-muted-foreground">{categoryLabelMap[item.category] ?? item.category}</td>
                         <td className="px-4 py-3 text-foreground">{formatCurrency(item.price)}</td>
                         <td className="px-4 py-3">
                           <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${item.available ? 'bg-success/10 text-success' : 'bg-destructive/10 text-destructive'}`}>
-                            {item.available ? 'Available' : 'Sold Out'}
+                            {item.available ? 'পাওয়া যাচ্ছে' : 'স্টক শেষ'}
                           </span>
                         </td>
                       </tr>
@@ -119,7 +129,7 @@ const AdminPage = () => {
                       order.status === 'delivered' ? 'bg-success/10 text-success' :
                       order.status === 'preparing' ? 'bg-accent text-accent-foreground' :
                       'bg-muted text-muted-foreground'
-                    }`}>{order.status}</span>
+                    }`}>{statusLabelMap[order.status] ?? order.status}</span>
                   </div>
                   <p className="text-sm text-muted-foreground">{order.customerName} — {order.deliveryAddress}</p>
                   <p className="text-sm text-muted-foreground mt-1">{order.items.map((i) => `${i.quantity}× ${i.menuItem.name}`).join(', ')}</p>

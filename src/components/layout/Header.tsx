@@ -10,9 +10,9 @@ import { useAuthStore } from '@/store/auth-store';
 import { Button } from '@/components/ui/button';
 
 const navLinks = [
-  { label: 'Home', to: '/' },
-  { label: 'Menu', to: '/menu' },
-  { label: 'Cart', to: '/cart' },
+  { label: 'হোম', to: '/' },
+  { label: 'মেনু', to: '/menu' },
+  { label: 'কার্ট', to: '/cart' },
 ];
 
 export function Header() {
@@ -122,7 +122,7 @@ export function Header() {
             <div className="hidden items-center gap-2 md:flex">
               <Button asChild variant="ghost" size="sm" className={isTransparent ? 'text-warm-cream hover:bg-white/10 hover:text-warm-cream' : ''}>
                 <Link href="/dashboard">
-                  <User className="mr-1 h-4 w-4" /> Account
+                  <User className="mr-1 h-4 w-4" /> একাউন্ট
                 </Link>
               </Button>
               <Button
@@ -131,7 +131,7 @@ export function Header() {
                 onClick={logout}
                 className={isTransparent ? 'text-warm-cream hover:bg-white/10 hover:text-warm-cream' : ''}
               >
-                Logout
+                লগআউট
               </Button>
             </div>
           ) : hasHydrated ? (
@@ -141,12 +141,12 @@ export function Header() {
               variant="ghost"
               size="sm"
             >
-              <Link href="/login">Sign In</Link>
+              <Link href="/login">সাইন ইন</Link>
             </Button>
           ) : null}
 
           <Button asChild className="hidden lg:inline-flex gold-gradient border-0 px-5 text-charcoal hover:opacity-90">
-            <Link href="/menu">Order Now</Link>
+            <Link href="/menu">অর্ডার করুন</Link>
           </Button>
 
           <button
@@ -176,11 +176,11 @@ export function Header() {
             ))}
             {hasHydrated && isAuthenticated ? (
               <>
-                <Link href="/dashboard" onClick={() => setMobileOpen(false)} className="py-2 text-sm font-medium text-muted-foreground">Account</Link>
-                <button onClick={() => { logout(); setMobileOpen(false); }} className="py-2 text-left text-sm font-medium text-muted-foreground">Logout</button>
+                <Link href="/dashboard" onClick={() => setMobileOpen(false)} className="py-2 text-sm font-medium text-muted-foreground">একাউন্ট</Link>
+                <button onClick={() => { logout(); setMobileOpen(false); }} className="py-2 text-left text-sm font-medium text-muted-foreground">লগআউট</button>
               </>
             ) : hasHydrated ? (
-              <Link href="/login" onClick={() => setMobileOpen(false)} className="py-2 text-sm font-semibold text-foreground/80">Sign In</Link>
+              <Link href="/login" onClick={() => setMobileOpen(false)} className="py-2 text-sm font-semibold text-foreground/80">সাইন ইন</Link>
             ) : null}
           </nav>
         </div>

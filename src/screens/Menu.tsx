@@ -32,8 +32,8 @@ const MenuPage = () => {
     <Layout>
       <section className="container py-10 md:py-16">
         <div className="mb-8">
-          <h1 className="font-display text-3xl font-bold text-foreground md:text-4xl">Our Menu</h1>
-          <p className="mt-2 text-muted-foreground">Explore our full selection of handcrafted dishes</p>
+          <h1 className="font-display text-3xl font-bold text-foreground md:text-4xl">আমাদের মেনু</h1>
+          <p className="mt-2 text-muted-foreground">আমাদের সব জনপ্রিয় ও যত্নে প্রস্তুত করা খাবার একসাথে দেখুন</p>
         </div>
 
         {/* Category filters */}
@@ -43,7 +43,7 @@ const MenuPage = () => {
             size="sm"
             onClick={() => handleCategory('all')}
           >
-            All
+            সব
           </Button>
           {categories.map((cat) => (
             <Button
@@ -66,7 +66,7 @@ const MenuPage = () => {
 
         {filtered.length === 0 && (
           <div className="py-20 text-center text-muted-foreground">
-            <p className="text-lg">No items found in this category.</p>
+            <p className="text-lg">এই ক্যাটাগরিতে কোনো আইটেম পাওয়া যায়নি।</p>
           </div>
         )}
       </section>

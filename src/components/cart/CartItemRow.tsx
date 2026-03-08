@@ -22,7 +22,7 @@ export function CartItemRow({ item }: CartItemProps) {
         <div className="flex items-start justify-between gap-2">
           <div>
             <h4 className="font-display font-semibold text-foreground">{item.menuItem.name}</h4>
-            <p className="text-sm text-muted-foreground">{formatCurrency(item.menuItem.price)} each</p>
+            <p className="text-sm text-muted-foreground">প্রতি পিস {formatCurrency(item.menuItem.price)}</p>
           </div>
           <span className="font-body font-bold text-foreground whitespace-nowrap">
             {formatCurrency(item.menuItem.price * item.quantity)}

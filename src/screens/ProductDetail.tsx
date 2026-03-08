@@ -21,8 +21,8 @@ const ProductDetail = () => {
     return (
       <Layout>
         <div className="container py-20 text-center">
-          <h1 className="font-display text-2xl font-bold">Item not found</h1>
-          <Link href="/menu" className="mt-4 inline-block text-primary hover:underline">Back to Menu</Link>
+          <h1 className="font-display text-2xl font-bold">আইটেমটি পাওয়া যায়নি</h1>
+          <Link href="/menu" className="mt-4 inline-block text-primary hover:underline">মেনুতে ফিরে যান</Link>
         </div>
       </Layout>
     );
@@ -32,7 +32,7 @@ const ProductDetail = () => {
     <Layout>
       <div className="container py-8 md:py-16">
         <Link href="/menu" className="mb-6 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary">
-          <ArrowLeft className="h-4 w-4" /> Back to Menu
+          <ArrowLeft className="h-4 w-4" /> মেনুতে ফিরে যান
         </Link>
 
         <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
@@ -52,12 +52,12 @@ const ProductDetail = () => {
 
             {!item.available ? (
               <div className="mt-6 rounded-md bg-destructive/10 p-4 text-center text-destructive font-medium">
-                Currently unavailable
+                বর্তমানে পাওয়া যাচ্ছে না
               </div>
             ) : (
               <div className="mt-8 space-y-4">
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-foreground">Quantity:</span>
+                  <span className="text-sm font-medium text-foreground">পরিমাণ:</span>
                   <div className="flex items-center border border-border rounded-md">
                     <Button variant="ghost" size="icon" className="h-10 w-10" onClick={() => setQuantity(Math.max(1, quantity - 1))}>
                       <Minus className="h-4 w-4" />
@@ -71,7 +71,7 @@ const ProductDetail = () => {
 
                 <Button size="lg" className="w-full md:w-auto" onClick={() => { addItem(item, quantity); setQuantity(1); }}>
                   <ShoppingCart className="mr-2 h-4 w-4" />
-                  Add to Cart - {formatCurrency(item.price * quantity)}
+                  কার্টে যোগ করুন - {formatCurrency(item.price * quantity)}
                 </Button>
               </div>
             )}

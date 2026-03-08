@@ -23,31 +23,31 @@ export function Footer() {
               </span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-warm-cream/70">
-              A premium food destination with dine-in, takeaway, and home delivery service.
+              ডাইন-ইন, টেকঅ্যাওয়ে এবং হোম ডেলিভারির জন্য একটি প্রিমিয়াম খাবারের ঠিকানা।
             </p>
           </div>
 
           <div>
-            <h4 className="mb-4 font-display text-sm font-semibold uppercase tracking-[0.2em] text-gold">Quick Links</h4>
+            <h4 className="mb-4 font-display text-sm font-semibold uppercase tracking-[0.2em] text-gold">দ্রুত লিংক</h4>
             <div className="flex flex-col gap-2">
-              {[['Home', '/'], ['Menu', '/menu'], ['Cart', '/cart'], ['Login', '/login']].map(([label, to]) => (
+              {[['হোম', '/'], ['মেনু', '/menu'], ['কার্ট', '/cart'], ['লগইন', '/login']].map(([label, to]) => (
                 <Link key={to} href={to} className="text-sm text-warm-cream/70 transition-colors hover:text-gold">{label}</Link>
               ))}
             </div>
           </div>
 
           <div>
-            <h4 className="mb-4 font-display text-sm font-semibold uppercase tracking-[0.2em] text-gold">Opening Hours</h4>
+            <h4 className="mb-4 font-display text-sm font-semibold uppercase tracking-[0.2em] text-gold">খোলার সময়</h4>
             <div className="space-y-1 text-sm text-warm-cream/70">
-              <p>Saturday - Thursday: 10:00 AM - 11:30 PM</p>
-              <p>Friday: 3:00 PM - 11:30 PM</p>
+              <p>শনিবার - বৃহস্পতিবার: সকাল ১০:০০ - রাত ১১:৩০</p>
+              <p>শুক্রবার: বিকাল ৩:০০ - রাত ১১:৩০</p>
             </div>
           </div>
 
           <div>
-            <h4 className="mb-4 font-display text-sm font-semibold uppercase tracking-[0.2em] text-gold">Contact</h4>
+            <h4 className="mb-4 font-display text-sm font-semibold uppercase tracking-[0.2em] text-gold">যোগাযোগ</h4>
             <div className="space-y-1 text-sm text-warm-cream/70">
-              <p>House 22, Dhanmondi, Dhaka</p>
+              <p>হাউস ২২, ধানমন্ডি, ঢাকা</p>
               <p>+880 1712-345678</p>
               <p>hello@meetpoint.com</p>
             </div>
@@ -55,7 +55,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 border-t border-warm-cream/10 pt-6 text-center text-xs text-warm-cream/45">
-          © {new Date().getFullYear()} Meet POINT. All rights reserved.
+          © {new Date().getFullYear()} Meet POINT. সর্বস্বত্ব সংরক্ষিত।
         </div>
       </div>
     </footer>

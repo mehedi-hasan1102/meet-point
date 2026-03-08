@@ -11,6 +11,14 @@ import { formatCurrency } from '@/lib/utils';
 
 type Tab = 'orders' | 'profile' | 'addresses';
 
+const statusLabelMap: Record<string, string> = {
+  pending: 'অপেক্ষমাণ',
+  preparing: 'প্রস্তুত হচ্ছে',
+  ready: 'প্রস্তুত',
+  delivered: 'ডেলিভারড',
+  cancelled: 'বাতিল',
+};
+
 const Dashboard = () => {
   const router = useRouter();
   const { user, isAuthenticated, hasHydrated } = useAuthStore();
@@ -25,15 +33,15 @@ const Dashboard = () => {
   if (!hasHydrated || !isAuthenticated) return null;
 
   const tabs: { key: Tab; label: string; icon: React.ElementType }[] = [
-    { key: 'orders', label: 'Orders', icon: Package },
-    { key: 'profile', label: 'Profile', icon: User },
-    { key: 'addresses', label: 'Addresses', icon: MapPin },
+    { key: 'orders', label: 'অর্ডারসমূহ', icon: Package },
+    { key: 'profile', label: 'প্রোফাইল', icon: User },
+    { key: 'addresses', label: 'ঠিকানা', icon: MapPin },
   ];
 
   return (
     <Layout>
       <div className="container py-10 md:py-16">
-        <h1 className="font-display text-3xl font-bold text-foreground mb-8">My Account</h1>
+        <h1 className="font-display text-3xl font-bold text-foreground mb-8">আমার একাউন্ট</h1>
 
         <div className="flex flex-wrap gap-2 mb-8">
           {tabs.map(({ key, label, icon: Icon }) => (
@@ -56,7 +64,7 @@ const Dashboard = () => {
                     order.status === 'delivered' ? 'bg-success/10 text-success' :
                     order.status === 'preparing' ? 'bg-accent text-accent-foreground' :
                     'bg-muted text-muted-foreground'
-                  }`}>{order.status}</span>
+                  }`}>{statusLabelMap[order.status] ?? order.status}</span>
                 </div>
                 <div className="text-sm text-muted-foreground">
                   {order.items.map((i) => `${i.quantity}× ${i.menuItem.name}`).join(', ')}
@@ -69,9 +77,9 @@ const Dashboard = () => {
 
         {activeTab === 'profile' && user && (
           <div className="rounded-lg border border-border bg-card p-6 max-w-lg space-y-3">
-            <div><span className="text-sm text-muted-foreground">Name</span><p className="font-medium text-foreground">{user.name}</p></div>
-            <div><span className="text-sm text-muted-foreground">Email</span><p className="font-medium text-foreground">{user.email}</p></div>
-            <div><span className="text-sm text-muted-foreground">Phone</span><p className="font-medium text-foreground">{user.phone}</p></div>
+            <div><span className="text-sm text-muted-foreground">নাম</span><p className="font-medium text-foreground">{user.name}</p></div>
+            <div><span className="text-sm text-muted-foreground">ইমেইল</span><p className="font-medium text-foreground">{user.email}</p></div>
+            <div><span className="text-sm text-muted-foreground">ফোন</span><p className="font-medium text-foreground">{user.phone}</p></div>
           </div>
         )}
 
@@ -81,7 +89,7 @@ const Dashboard = () => {
               <div key={addr.id} className="rounded-lg border border-border bg-card p-5">
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-display font-semibold text-foreground">{addr.label}</span>
-                  {addr.isDefault && <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">Default</span>}
+                  {addr.isDefault && <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">ডিফল্ট</span>}
                 </div>
                 <p className="text-sm text-muted-foreground">{addr.street}</p>
                 <p className="text-sm text-muted-foreground">{addr.city}, {addr.state} {addr.zip}</p>

@@ -5,11 +5,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const bdtFormatter = new Intl.NumberFormat("en-BD", {
+const bdtFormatter = new Intl.NumberFormat("bn-BD", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 });
 
 export function formatCurrency(amount: number) {
-  return `Tk ${bdtFormatter.format(amount)}`;
+  return `৳ ${bdtFormatter.format(amount)}`;
 }

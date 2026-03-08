@@ -15,25 +15,25 @@ const OrderConfirmation = () => {
       <div className="container py-20 text-center max-w-lg mx-auto">
         <div className="animate-fade-in">
           <CheckCircle className="mx-auto h-20 w-20 text-success" />
-          <h1 className="mt-6 font-display text-3xl font-bold text-foreground">Order Confirmed!</h1>
+          <h1 className="mt-6 font-display text-3xl font-bold text-foreground">অর্ডার নিশ্চিত হয়েছে!</h1>
           <p className="mt-3 text-muted-foreground">
-            Thank you for your order. We're preparing your food now.
+            আপনার অর্ডারের জন্য ধন্যবাদ। আমরা এখন আপনার খাবার প্রস্তুত করছি।
           </p>
 
           <div className="mt-8 rounded-lg border border-border bg-card p-6">
-            <p className="text-sm text-muted-foreground">Order Number</p>
+            <p className="text-sm text-muted-foreground">অর্ডার নম্বর</p>
             <p className="font-display text-2xl font-bold text-primary mt-1">{orderNumber}</p>
             <p className="mt-4 text-sm text-muted-foreground">
-              Estimated delivery: 30–45 minutes
+              আনুমানিক ডেলিভারি সময়: ৩০–৪৫ মিনিট
             </p>
           </div>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
             <Button asChild>
-              <Link href="/menu">Order More</Link>
+              <Link href="/menu">আরও অর্ডার করুন</Link>
             </Button>
             <Button asChild variant="outline">
-              <Link href="/">Back to Home</Link>
+              <Link href="/">হোমে ফিরে যান</Link>
             </Button>
           </div>
         </div>

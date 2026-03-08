@@ -5,19 +5,19 @@ import { Facebook, Instagram, MessageCircleMore, X } from 'lucide-react';
 
 const socialActions = [
   {
-    label: 'WhatsApp',
+    label: 'হোয়াটসঅ্যাপ',
     href: 'https://wa.me/8801712345678?text=Hello%20Meet%20Point',
     icon: MessageCircleMore,
     className: 'bg-[#25D366] hover:bg-[#1ebe5d]',
   },
   {
-    label: 'Messenger',
+    label: 'মেসেঞ্জার',
     href: 'https://m.me/meetpointrestaurant',
     icon: Facebook,
     className: 'bg-[#1877F2] hover:bg-[#0f67d8]',
   },
   {
-    label: 'Instagram',
+    label: 'ইনস্টাগ্রাম',
     href: 'https://ig.me/m/meetpointrestaurant',
     icon: Instagram,
     className: 'bg-[#E4405F] hover:bg-[#cf3352]',
@@ -58,10 +58,10 @@ export function SocialCta() {
         onClick={() => setIsOpen((current) => !current)}
         className="inline-flex h-14 items-center gap-3 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-[0_16px_36px_rgba(180,48,38,0.32)] transition-transform duration-200 hover:scale-[1.02]"
         aria-expanded={isOpen}
-        aria-label={isOpen ? 'Close social contact menu' : 'Open social contact menu'}
+        aria-label={isOpen ? 'সোশ্যাল কন্টাক্ট মেনু বন্ধ করুন' : 'সোশ্যাল কন্টাক্ট মেনু খুলুন'}
       >
         {isOpen ? <X className="h-5 w-5" /> : <MessageCircleMore className="h-5 w-5" />}
-        Contact Us
+        যোগাযোগ করুন
       </button>
     </div>
   );
