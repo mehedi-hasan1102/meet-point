@@ -1,10 +1,13 @@
-import { Link, useSearchParams } from 'react-router-dom';
+"use client";
+
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { CheckCircle } from 'lucide-react';
 
 const OrderConfirmation = () => {
-  const [searchParams] = useSearchParams();
+  const searchParams = useSearchParams();
   const orderNumber = searchParams.get('order') || 'ORD-UNKNOWN';
 
   return (
@@ -26,8 +29,12 @@ const OrderConfirmation = () => {
           </div>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-            <Link to="/menu"><Button>Order More</Button></Link>
-            <Link to="/"><Button variant="outline">Back to Home</Button></Link>
+            <Button asChild>
+              <Link href="/menu">Order More</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link href="/">Back to Home</Link>
+            </Button>
           </div>
         </div>
       </div>

@@ -1,19 +1,28 @@
+"use client";
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Layout } from '@/components/layout/Layout';
 import { useAuthStore } from '@/store/auth-store';
 import { mockOrders } from '@/data/mock-data';
 import { Button } from '@/components/ui/button';
-import { Link, Navigate } from 'react-router-dom';
 import { Package, User, MapPin } from 'lucide-react';
-import { useState } from 'react';
 import { formatCurrency } from '@/lib/utils';
 
 type Tab = 'orders' | 'profile' | 'addresses';
 
 const Dashboard = () => {
-  const { user, isAuthenticated } = useAuthStore();
+  const router = useRouter();
+  const { user, isAuthenticated, hasHydrated } = useAuthStore();
   const [activeTab, setActiveTab] = useState<Tab>('orders');
 
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  useEffect(() => {
+    if (hasHydrated && !isAuthenticated) {
+      router.replace('/login');
+    }
+  }, [hasHydrated, isAuthenticated, router]);
+
+  if (!hasHydrated || !isAuthenticated) return null;
 
   const tabs: { key: Tab; label: string; icon: React.ElementType }[] = [
     { key: 'orders', label: 'Orders', icon: Package },

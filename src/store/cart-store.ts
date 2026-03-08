@@ -1,6 +1,7 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 import type { MenuItem } from '@/data/mock-data';
+import { getPersistStorage } from '@/lib/persist-storage';
 
 export interface CartItem {
   menuItem: MenuItem;
@@ -9,6 +10,8 @@ export interface CartItem {
 
 interface CartState {
   items: CartItem[];
+  hasHydrated: boolean;
+  setHasHydrated: (hasHydrated: boolean) => void;
   addItem: (item: MenuItem, quantity?: number) => void;
   removeItem: (itemId: string) => void;
   updateQuantity: (itemId: string, quantity: number) => void;
@@ -25,6 +28,8 @@ export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       items: [],
+      hasHydrated: false,
+      setHasHydrated: (hasHydrated) => set({ hasHydrated }),
       addItem: (menuItem, quantity = 1) => {
         set((state) => {
           const existing = state.items.find((i) => i.menuItem.id === menuItem.id);
@@ -58,6 +63,12 @@ export const useCartStore = create<CartState>()(
       getTotal: () => get().getSubtotal() + get().getTax(),
       getItemCount: () => get().items.reduce((sum, i) => sum + i.quantity, 0),
     }),
-    { name: 'restaurant-cart' }
+    {
+      name: 'restaurant-cart',
+      storage: createJSONStorage(getPersistStorage),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
+    }
   )
 );

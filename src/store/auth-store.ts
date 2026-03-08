@@ -1,10 +1,13 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 import { mockUser, type User } from '@/data/mock-data';
+import { getPersistStorage } from '@/lib/persist-storage';
 
 interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
+  hasHydrated: boolean;
+  setHasHydrated: (hasHydrated: boolean) => void;
   login: (email: string, password: string) => Promise<boolean>;
   register: (name: string, email: string, password: string) => Promise<boolean>;
   logout: () => void;
@@ -15,6 +18,8 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       isAuthenticated: false,
+      hasHydrated: false,
+      setHasHydrated: (hasHydrated) => set({ hasHydrated }),
       login: async (_email: string, _password: string) => {
         // Mock login — replace with API call
         set({ user: mockUser, isAuthenticated: true });
@@ -26,9 +31,17 @@ export const useAuthStore = create<AuthState>()(
       },
       logout: () => {
         set({ user: null, isAuthenticated: false });
-        localStorage.removeItem('auth_token');
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('auth_token');
+        }
       },
     }),
-    { name: 'restaurant-auth' }
+    {
+      name: 'restaurant-auth',
+      storage: createJSONStorage(getPersistStorage),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
+    }
   )
 );

@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+"use client";
+
+import Link from 'next/link';
 import { Layout } from '@/components/layout/Layout';
 import { useCartStore } from '@/store/cart-store';
 import { CartItemRow } from '@/components/cart/CartItemRow';
@@ -7,7 +9,9 @@ import { ShoppingBag, ArrowRight } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
 
 const CartPage = () => {
-  const { items, getSubtotal, getTax, getTotal, clearCart } = useCartStore();
+  const { items, getSubtotal, getTax, getTotal, clearCart, hasHydrated } = useCartStore();
+
+  if (!hasHydrated) return null;
 
   if (items.length === 0) {
     return (
@@ -16,9 +20,9 @@ const CartPage = () => {
           <ShoppingBag className="mx-auto h-16 w-16 text-muted-foreground/40" />
           <h1 className="mt-4 font-display text-2xl font-bold text-foreground">Your cart is empty</h1>
           <p className="mt-2 text-muted-foreground">Add some delicious items to get started!</p>
-          <Link to="/menu" className="mt-6 inline-block">
-            <Button>Browse Menu</Button>
-          </Link>
+          <Button asChild className="mt-6">
+            <Link href="/menu">Browse Menu</Link>
+          </Button>
         </div>
       </Layout>
     );
@@ -60,11 +64,11 @@ const CartPage = () => {
                   <span>{formatCurrency(getTotal())}</span>
                 </div>
               </div>
-              <Link to="/checkout" className="mt-6 block">
-                <Button className="w-full" size="lg">
+              <Button asChild className="mt-6 w-full" size="lg">
+                <Link href="/checkout">
                   Proceed to Checkout <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

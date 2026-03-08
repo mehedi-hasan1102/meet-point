@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { menuItems, mockOrders } from '@/data/mock-data';
 import { Button } from '@/components/ui/button';
 import { formatCurrency } from '@/lib/utils';
@@ -31,7 +33,7 @@ const AdminPage = () => {
       {/* Sidebar */}
       <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-charcoal text-warm-cream transform transition-transform lg:relative lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex items-center justify-between p-5 border-b border-warm-cream/10">
-          <Link to="/" className="font-display text-xl font-bold text-gold">Meet Admin</Link>
+          <Link href="/" className="font-display text-xl font-bold text-gold">Meet Admin</Link>
           <button className="lg:hidden text-warm-cream" onClick={() => setSidebarOpen(false)}><X className="h-5 w-5" /></button>
         </div>
         <nav className="p-4 space-y-1">

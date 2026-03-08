@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -25,14 +27,16 @@ const ForgotPassword = () => {
             <div className="mt-8 rounded-lg border border-border bg-card p-6">
               <p className="text-success font-medium">Reset link sent!</p>
               <p className="mt-2 text-sm text-muted-foreground">Check your inbox for instructions.</p>
-              <Link to="/login" className="mt-4 inline-block"><Button variant="outline">Back to Login</Button></Link>
+              <Button asChild className="mt-4" variant="outline">
+                <Link href="/login">Back to Login</Link>
+              </Button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="mt-8 rounded-lg border border-border bg-card p-6 space-y-4 text-left">
               <div><Label htmlFor="email">Email</Label><Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required /></div>
               <Button type="submit" className="w-full" size="lg">Send Reset Link</Button>
               <p className="text-center text-sm text-muted-foreground">
-                <Link to="/login" className="text-primary hover:underline">Back to Login</Link>
+                <Link href="/login" className="text-primary hover:underline">Back to Login</Link>
               </p>
             </form>
           )}

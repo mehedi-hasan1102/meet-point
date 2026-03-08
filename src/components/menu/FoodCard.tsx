@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+"use client";
+
+import Link from 'next/link';
 import type { MenuItem } from '@/data/mock-data';
 import { useCartStore } from '@/store/cart-store';
 import { Button } from '@/components/ui/button';
@@ -14,7 +16,7 @@ export function FoodCard({ item }: FoodCardProps) {
 
   return (
     <div className="group card-hover overflow-hidden rounded-lg border border-border bg-card">
-      <Link to={`/menu/${item.id}`} className="block">
+      <Link href={`/menu/${item.id}`} className="block">
         <div className="relative aspect-[4/3] overflow-hidden">
           <img
             src={item.image}
@@ -39,7 +41,7 @@ export function FoodCard({ item }: FoodCardProps) {
 
       <div className="p-4">
         <div className="flex items-start justify-between gap-2">
-          <Link to={`/menu/${item.id}`}>
+          <Link href={`/menu/${item.id}`}>
             <h3 className="font-display text-lg font-semibold text-foreground hover:text-primary transition-colors">
               {item.name}
             </h3>

@@ -1,5 +1,8 @@
+"use client";
+
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Layout } from '@/components/layout/Layout';
 import { useAuthStore } from '@/store/auth-store';
 import { Button } from '@/components/ui/button';
@@ -7,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 const RegisterPage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const register = useAuthStore((s) => s.register);
   const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' });
 
@@ -15,7 +18,7 @@ const RegisterPage = () => {
     e.preventDefault();
     if (form.password !== form.confirm) return;
     const success = await register(form.name, form.email, form.password);
-    if (success) navigate('/dashboard');
+    if (success) router.push('/dashboard');
   };
 
   return (
@@ -34,7 +37,7 @@ const RegisterPage = () => {
             <div><Label htmlFor="confirm">Confirm Password</Label><Input id="confirm" type="password" value={form.confirm} onChange={(e) => setForm((p) => ({ ...p, confirm: e.target.value }))} required /></div>
             <Button type="submit" className="w-full" size="lg">Create Account</Button>
             <p className="text-center text-sm text-muted-foreground">
-              Already have an account? <Link to="/login" className="text-primary hover:underline font-medium">Sign In</Link>
+              Already have an account? <Link href="/login" className="text-primary hover:underline font-medium">Sign In</Link>
             </p>
           </form>
         </div>

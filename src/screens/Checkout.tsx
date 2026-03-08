@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+"use client";
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Layout } from '@/components/layout/Layout';
 import { useCartStore } from '@/store/cart-store';
 import { Button } from '@/components/ui/button';
@@ -8,8 +10,8 @@ import { Label } from '@/components/ui/label';
 import { formatCurrency } from '@/lib/utils';
 
 const CheckoutPage = () => {
-  const navigate = useNavigate();
-  const { items, getSubtotal, getTax, getTotal, clearCart } = useCartStore();
+  const router = useRouter();
+  const { items, getSubtotal, getTax, getTotal, clearCart, hasHydrated } = useCartStore();
   const [form, setForm] = useState({
     firstName: '', lastName: '', email: '', phone: '',
     street: '', city: '', state: '', zip: '',
@@ -23,13 +25,16 @@ const CheckoutPage = () => {
     e.preventDefault();
     const orderNumber = `ORD-${Date.now().toString(36).toUpperCase()}`;
     clearCart();
-    navigate(`/order-confirmation?order=${orderNumber}`);
+    router.push(`/order-confirmation?order=${orderNumber}`);
   };
 
-  if (items.length === 0) {
-    navigate('/cart');
-    return null;
-  }
+  useEffect(() => {
+    if (hasHydrated && items.length === 0) {
+      router.replace('/cart');
+    }
+  }, [hasHydrated, items.length, router]);
+
+  if (!hasHydrated || items.length === 0) return null;
 
   return (
     <Layout>

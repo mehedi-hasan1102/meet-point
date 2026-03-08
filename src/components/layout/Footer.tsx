@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 export function Footer() {
   return (
@@ -6,7 +6,7 @@ export function Footer() {
       <div className="container py-14">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <Link to="/" className="inline-block">
+            <Link href="/" className="inline-block">
               <span className="font-display text-3xl font-bold text-gold">Meet</span>
               <span className="ml-1 font-display text-xs tracking-[0.3em] text-warm-cream/70">POINT</span>
             </Link>
@@ -19,7 +19,7 @@ export function Footer() {
             <h4 className="mb-4 font-display text-sm font-semibold uppercase tracking-[0.2em] text-gold">Quick Links</h4>
             <div className="flex flex-col gap-2">
               {[['Home', '/'], ['Menu', '/menu'], ['Cart', '/cart'], ['Login', '/login']].map(([label, to]) => (
-                <Link key={to} to={to} className="text-sm text-warm-cream/70 transition-colors hover:text-gold">{label}</Link>
+                <Link key={to} href={to} className="text-sm text-warm-cream/70 transition-colors hover:text-gold">{label}</Link>
               ))}
             </div>
           </div>

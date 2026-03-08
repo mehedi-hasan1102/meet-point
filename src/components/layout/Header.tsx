@@ -1,4 +1,7 @@
-import { Link, useLocation } from 'react-router-dom';
+"use client";
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ShoppingCart, Menu, X, User, Phone, Clock3 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useCartStore } from '@/store/cart-store';
@@ -16,9 +19,9 @@ export function Header() {
   const [hideTopStrip, setHideTopStrip] = useState(false);
   const lastScrollYRef = useRef(0);
   const tickingRef = useRef(false);
-  const location = useLocation();
-  const itemCount = useCartStore((s) => s.getItemCount());
-  const { isAuthenticated, logout } = useAuthStore();
+  const pathname = usePathname();
+  const itemCount = useCartStore((s) => (s.hasHydrated ? s.getItemCount() : 0));
+  const { isAuthenticated, logout, hasHydrated } = useAuthStore();
 
   useEffect(() => {
     const updateTopStripVisibility = () => {
@@ -73,7 +76,7 @@ export function Header() {
       </div>
 
       <div className="container flex h-20 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <span className="font-display text-3xl font-bold uppercase leading-none text-primary">Meet</span>
           <span className="font-display text-xs tracking-[0.35em] text-muted-foreground">POINT</span>
         </Link>
@@ -82,9 +85,9 @@ export function Header() {
           {navLinks.map((link) => (
             <Link
               key={link.to}
-              to={link.to}
+              href={link.to}
               className={`text-[0.95rem] font-semibold tracking-wide transition-colors hover:text-primary ${
-                location.pathname === link.to ? 'text-primary' : 'text-foreground/80'
+                pathname === link.to ? 'text-primary' : 'text-foreground/80'
               }`}
             >
               {link.label}
@@ -93,7 +96,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <Link to="/cart" className="relative p-2.5 text-foreground transition-colors hover:text-primary">
+          <Link href="/cart" className="relative p-2.5 text-foreground transition-colors hover:text-primary">
             <ShoppingCart className="h-5 w-5" />
             {itemCount > 0 && (
               <span className="absolute -right-1 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
@@ -102,26 +105,26 @@ export function Header() {
             )}
           </Link>
 
-          {isAuthenticated ? (
+          {hasHydrated && isAuthenticated ? (
             <div className="hidden items-center gap-2 md:flex">
-              <Link to="/dashboard">
-                <Button variant="ghost" size="sm">
+              <Button asChild variant="ghost" size="sm">
+                <Link href="/dashboard">
                   <User className="mr-1 h-4 w-4" /> Account
-                </Button>
-              </Link>
+                </Link>
+              </Button>
               <Button variant="ghost" size="sm" onClick={logout}>
                 Logout
               </Button>
             </div>
-          ) : (
-            <Link to="/login" className="hidden md:block">
-              <Button variant="ghost" size="sm">Sign In</Button>
-            </Link>
-          )}
+          ) : hasHydrated ? (
+            <Button asChild className="hidden md:inline-flex" variant="ghost" size="sm">
+              <Link href="/login">Sign In</Link>
+            </Button>
+          ) : null}
 
-          <Link to="/menu" className="hidden lg:block">
-            <Button className="gold-gradient border-0 px-5 text-charcoal hover:opacity-90">Order Now</Button>
-          </Link>
+          <Button asChild className="hidden lg:inline-flex gold-gradient border-0 px-5 text-charcoal hover:opacity-90">
+            <Link href="/menu">Order Now</Link>
+          </Button>
 
           <button
             className="p-2 text-foreground lg:hidden"
@@ -139,23 +142,23 @@ export function Header() {
             {navLinks.map((link) => (
               <Link
                 key={link.to}
-                to={link.to}
+                href={link.to}
                 onClick={() => setMobileOpen(false)}
                 className={`py-2 text-sm font-semibold ${
-                  location.pathname === link.to ? 'text-primary' : 'text-foreground/80'
+                  pathname === link.to ? 'text-primary' : 'text-foreground/80'
                 }`}
               >
                 {link.label}
               </Link>
             ))}
-            {isAuthenticated ? (
+            {hasHydrated && isAuthenticated ? (
               <>
-                <Link to="/dashboard" onClick={() => setMobileOpen(false)} className="py-2 text-sm font-medium text-muted-foreground">Account</Link>
+                <Link href="/dashboard" onClick={() => setMobileOpen(false)} className="py-2 text-sm font-medium text-muted-foreground">Account</Link>
                 <button onClick={() => { logout(); setMobileOpen(false); }} className="py-2 text-left text-sm font-medium text-muted-foreground">Logout</button>
               </>
-            ) : (
-              <Link to="/login" onClick={() => setMobileOpen(false)} className="py-2 text-sm font-semibold text-foreground/80">Sign In</Link>
-            )}
+            ) : hasHydrated ? (
+              <Link href="/login" onClick={() => setMobileOpen(false)} className="py-2 text-sm font-semibold text-foreground/80">Sign In</Link>
+            ) : null}
             <div className="mt-2 border-t border-border pt-3 text-xs text-muted-foreground">
               <p className="inline-flex items-center gap-2">
                 <Phone className="h-3.5 w-3.5" />

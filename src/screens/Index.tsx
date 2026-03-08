@@ -1,5 +1,7 @@
+"use client";
+
 import { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Layout } from '@/components/layout/Layout';
 import { FoodCard } from '@/components/menu/FoodCard';
 import { menuItems, categories } from '@/data/mock-data';
@@ -83,11 +85,11 @@ const Index = () => {
               Enjoy restaurant-style meals, combo offers, and home delivery from one place. Fresh ingredients and rich flavors in every bite.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Link to="/menu">
-                <Button size="lg" className="gold-gradient border-0 px-7 text-charcoal hover:opacity-90">
+              <Button asChild size="lg" className="gold-gradient border-0 px-7 text-charcoal hover:opacity-90">
+                <Link href="/menu">
                   Explore Menu <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+                </Link>
+              </Button>
               <Button
                 size="lg"
                 variant="outline"
@@ -135,7 +137,7 @@ const Index = () => {
             {categories.map((cat) => (
               <Link
                 key={cat.id}
-                to={`/menu?category=${cat.slug}`}
+                href={`/menu?category=${cat.slug}`}
                 className="group min-w-[170px] shrink-0 snap-center text-center"
               >
                 <div className="mx-auto h-40 w-40 overflow-hidden rounded-full border-4 border-white shadow-lg transition-transform duration-300 group-hover:scale-105">
@@ -169,11 +171,11 @@ const Index = () => {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Favorite Menu</p>
               <h2 className="mt-3 font-display text-3xl font-bold text-foreground md:text-4xl">Most Loved Dishes</h2>
             </div>
-            <Link to="/menu">
-              <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+            <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+              <Link href="/menu">
                 See All Items
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {featured.map((item) => (
@@ -202,7 +204,7 @@ const Index = () => {
                 <div className="p-5">
                   <h3 className="font-display text-2xl font-semibold text-foreground">{combo.name}</h3>
                   <p className="mt-2 text-sm text-muted-foreground">{combo.details}</p>
-                  <Link to="/menu" className="mt-4 inline-flex text-sm font-semibold text-primary">
+                  <Link href="/menu" className="mt-4 inline-flex text-sm font-semibold text-primary">
                     Order This Combo <ArrowRight className="ml-1 h-4 w-4" />
                   </Link>
                 </div>

@@ -1,5 +1,8 @@
-import { useParams, Link } from 'react-router-dom';
+"use client";
+
 import { useState } from 'react';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { Layout } from '@/components/layout/Layout';
 import { menuItems } from '@/data/mock-data';
 import { useCartStore } from '@/store/cart-store';
@@ -8,7 +11,8 @@ import { Minus, Plus, ShoppingCart, ArrowLeft } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
 
 const ProductDetail = () => {
-  const { id } = useParams<{ id: string }>();
+  const params = useParams();
+  const id = typeof params.id === 'string' ? params.id : params.id?.[0];
   const item = menuItems.find((i) => i.id === id);
   const addItem = useCartStore((s) => s.addItem);
   const [quantity, setQuantity] = useState(1);
@@ -18,7 +22,7 @@ const ProductDetail = () => {
       <Layout>
         <div className="container py-20 text-center">
           <h1 className="font-display text-2xl font-bold">Item not found</h1>
-          <Link to="/menu" className="mt-4 inline-block text-primary hover:underline">Back to Menu</Link>
+          <Link href="/menu" className="mt-4 inline-block text-primary hover:underline">Back to Menu</Link>
         </div>
       </Layout>
     );
@@ -27,7 +31,7 @@ const ProductDetail = () => {
   return (
     <Layout>
       <div className="container py-8 md:py-16">
-        <Link to="/menu" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors mb-6">
+        <Link href="/menu" className="mb-6 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary">
           <ArrowLeft className="h-4 w-4" /> Back to Menu
         </Link>
 

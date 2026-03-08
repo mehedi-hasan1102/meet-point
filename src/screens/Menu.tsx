@@ -1,14 +1,17 @@
-import { useState, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+"use client";
+
+import { useMemo } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Layout } from '@/components/layout/Layout';
 import { FoodCard } from '@/components/menu/FoodCard';
 import { menuItems, categories } from '@/data/mock-data';
 import { Button } from '@/components/ui/button';
 
 const MenuPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const initialCategory = searchParams.get('category') || 'all';
-  const [activeCategory, setActiveCategory] = useState(initialCategory);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const activeCategory = searchParams.get('category') || 'all';
 
   const filtered = useMemo(() => {
     if (activeCategory === 'all') return menuItems;
@@ -16,12 +19,13 @@ const MenuPage = () => {
   }, [activeCategory]);
 
   const handleCategory = (slug: string) => {
-    setActiveCategory(slug);
-    if (slug === 'all') {
-      setSearchParams({});
-    } else {
-      setSearchParams({ category: slug });
-    }
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (slug === 'all') params.delete('category');
+    else params.set('category', slug);
+
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
   };
 
   return (
