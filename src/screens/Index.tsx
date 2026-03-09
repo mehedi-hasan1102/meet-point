@@ -96,7 +96,7 @@ const Index = () => {
           playsInline
           aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-black/35" />
+        <div className="absolute inset-0 bg-black/10" />
         <div className="container relative grid min-h-screen gap-12 pb-16 pt-28 md:pb-24 md:pt-32 lg:grid-cols-[1fr_420px] lg:items-center">
           <div className="animate-fade-in">
             <span className="bn-label mb-6 inline-block rounded-full border border-gold/35 bg-black/20 px-4 py-1.5 text-xs font-semibold text-gold">
@@ -151,11 +151,9 @@ const Index = () => {
             <div className="max-w-2xl">
               <p className="bn-label text-xs font-semibold text-[#b47b31]">সিগনেচার সিলেকশন</p>
               <h2 className="mt-3 font-display text-3xl font-bold text-[#1f1a17] md:text-4xl">
-                জনপ্রিয় পদ, সুন্দর উপস্থাপনায়
+                জনপ্রিয় খাবার, ঘরোয়া উপস্থাপনায়
               </h2>
-              <p className="mt-3 text-sm leading-7 text-[#5d5146] md:text-base">
-                আলকাদেরিয়ার প্লেটেড মেনু স্ট্রিপ থেকে অনুপ্রাণিত হয়ে মিট পয়েন্টের জন্য আরও পরিপাটি ও সামঞ্জস্যপূর্ণভাবে এই সেকশনটি সাজানো হয়েছে।
-              </p>
+             
             </div>
 
             <div className="flex items-center gap-3">
@@ -223,7 +221,7 @@ const Index = () => {
           <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <p className="bn-label text-xs font-semibold text-primary">প্রিয় মেনু</p>
-              <h2 className="mt-3 font-display text-3xl font-bold text-foreground md:text-4xl">সবচেয়ে পছন্দের পদ</h2>
+              <h2 className="mt-3 font-display text-3xl font-bold text-foreground md:text-4xl">নতুন খাবার</h2>
             </div>
             <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
               <Link href="/menu">
@@ -235,6 +233,32 @@ const Index = () => {
             {featured.map((item) => (
               <FoodCard key={item.id} item={item} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 text-warm-cream md:py-24">
+        <div className="container">
+          <div className="relative overflow-hidden rounded-[32px] border border-black/5 shadow-[0_28px_70px_rgba(0,0,0,0.18)]">
+            <video
+              className="aspect-[9/12] w-full object-cover sm:aspect-[16/9]"
+              src="/hero2.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/10 via-black/35 to-black/10" />
+            <div className="absolute inset-x-0 bottom-0 top-0 flex items-end">
+              <div className="max-w-2xl p-6 sm:p-8 md:p-10">
+                <p className="bn-label text-xs font-semibold uppercase tracking-[0.2em] text-gold/85">ভিডিও হাইলাইট</p>
+                <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-white md:text-5xl">
+                  Meet Point-এ প্রিয়জন এর সাথে সময় কাটান এক ফ্রেমে
+                </h2>
+                
+              </div>
+            </div>
           </div>
         </div>
       </section>

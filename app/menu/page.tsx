@@ -1,5 +1,10 @@
+import { Suspense } from "react";
 import MenuScreen from "@/screens/Menu";
 
 export default function MenuPage() {
-  return <MenuScreen />;
+  return (
+    <Suspense fallback={null}>
+      <MenuScreen />
+    </Suspense>
+  );
 }
