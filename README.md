@@ -88,7 +88,7 @@ src/
 
 This is a standard Vite SPA and can be deployed to any static host (Vercel, Netlify, Cloudflare Pages, S3 + CDN, etc.) after running:
 
-```bash
+```bash         test
 npm run build
 ```
 
