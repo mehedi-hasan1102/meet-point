@@ -84,11 +84,8 @@ src/
 - API utilities in `src/lib/api` are structured for easy migration to real backend endpoints.
 - Authentication state is persisted locally via Zustand middleware.
 
-## Build and Deployment
 
-This is a standard Vite SPA and can be deployed to any static host (Vercel, Netlify, Cloudflare Pages, S3 + CDN, etc.) after running:
 
-```bash```
 npm run build
 ```
 
