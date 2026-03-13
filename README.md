@@ -89,4 +89,4 @@ src/
 npm run build
 ```
 
-Deploy the generated `dist/` directory..... 
+
